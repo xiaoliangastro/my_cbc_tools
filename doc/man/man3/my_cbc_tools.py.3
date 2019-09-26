@@ -1,0 +1,141 @@
+.TH "my_cbc_tools.py" 3 "Thu Sep 26 2019" "Version 0.0.1" "my_cbc_tools" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+my_cbc_tools.py
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBmy_cbc_tools\&.kde_data\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBmy_cbc_tools\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.hpd_interval\fP (post_sample, conf_interval=90, prior_sample=None, param_min=None, param_max=None, prior_method='div_kde', bw_method='scott', bins='rice', root_frac=(0\&.5, 0\&.5), pdf_guess_fac=1\&., pdf_guess=None, xtol=1e\-7, ftol=1e\-10, return_sample=False, return_size=2000, show_kde=False, debug=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.cal_sample_property\fP (sample, conf_interval=90\&., method='median', diff=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.cal_pdf_hpd\fP (x, pdf, conf_interval=90\&., debug=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.cal_acl\fP (sample, nlags=128, window=5, show_plot=False, verbose=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.plot_single\fP (sample, true_value=None, percentiles=[5\&., 50\&., 95\&.], bins='auto', xlabel='x', xscale='linear', xmin=None, xmax=None)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.plot_density\fP (sample1, sample2, true_values=None, xlabel=None, ylabel=None, m_pt=[5, 50, 95], c_pt=[68\&.3, 95\&.5], lower_1=None, upper_1=None, lower_2=None, upper_2=None, **kargs)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.plot_unique\fP (sample, show_repeated=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.cal_kldiv\fP (sample1, sample2, base=2\&., bw_method='scott', scale_th=1e\-8, bins='rice', use_kde=True, verbose=False, cal_jsd=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.plot_corr\fP (samples, names=None, cluster=True, metric_par=(2, 4), cmap='Blues', **kargs)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.compare_sample_plots\fP (samples, percentiles=[5\&., 50\&., 95\&.], labels=None, xlabel='x')"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.compare_two_sample_stats\fP (sample1, sample2)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.compare_two_sample_plots\fP (sample1, sample2, percentiles=[5\&., 50\&., 95\&.], xlabel='x', xscale='linear', xmin=None, xmax=None, bins='auto', histtype='bar', c1=None, c2=None, name1=None, name2=None)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.compare_two_samples\fP (sample1, sample2)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.compare_two_sample_pairs\fP (pair1, pair2, xlabel=None, ylabel=None, colors=['c', 'm'], lower_1=None, upper_1=None, lower_2=None, upper_2=None, m_pt=[5, 50, 95], c_pt=[68\&.3, 95\&.5], plot_config=None)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.dynamic_single\fP (sample, fixed_sample=None, frames=20, wait_time=0\&.5, xbound=None, scale_fac=1\&.2, bins='auto', percentiles=[5\&., 50\&., 95\&.])"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.dynamic_walkers\fP (sample, binned_steps=2, wait_time=0\&.5, xbound=None, scale_fac=1\&.2, bins='auto', percentiles=[5\&., 50\&., 95\&.])"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.get_lt_prior_from_m12l12\fP (size, m1_l, m1_u, l1_l, l1_u, m2_l=None, m2_u=None, l2_l=None, l2_u=None, mc_l=0, mc_u=np\&.inf, q_l=1\&., q_u=np\&.inf)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.get_lt_prior_from_mcql12\fP (size, mc_l, mc_u, q_l, q_u, l1_l, l1_u, m1_l=0, m1_u=np\&.inf, m2_l=None, m2_u=None, l2_l=None, l2_u=None)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.plot_mass_range\fP (m1_range, mc_range, q_range, m2_range=None)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.mclt_from_m12l12\fP (mass1, mass2, lambda1, lambda2)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.mcq_from_m12\fP (mass1, mass2)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.m12_from_mcq\fP (mchirp, q)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.lambda_tilde\fP (mass1, mass2, lambda1, lambda2)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.q12_from_qtm\fP (qt, qm, root_choose='+')"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.fp\fP (fname, io_state='r')"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.get_txt_pars\fP (input_file, delimiter=None)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.get_hdf_pars\fP (fpath, param_path='/data/posterior', data_type='dataframe')"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.load_txt\fP (input_file, params_list=None, delimiter=' ')"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.load_hdf\fP (fpath, data_path='/samples', params_list=None, data_type='pycbc', pt_sampler=False)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.load_thin_hdf\fP (fpath, data_path, params, pt_sampler=True, flatten=True)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.write_txt\fP (filename, data_list, title_list, fill_width=10)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.downsample\fP (array, size)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.unique_2darray\fP (array)"
+.br
+.ti -1c
+.RI "def \fBmy_cbc_tools\&.time_before_merger\fP (f_low, chirp_m)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "float \fBmy_cbc_tools\&.p_mks_to_mev\fP = 1\&.60218e32"
+.br
+.ti -1c
+.RI "float \fBmy_cbc_tools\&.e_mks_to_mev\fP = 1\&.782661907e15"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for my_cbc_tools from the source code\&.

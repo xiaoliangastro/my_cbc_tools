@@ -1,0 +1,764 @@
+.TH "my_cbc_tools" 3 "Thu Sep 26 2019" "Version 0.0.1" "my_cbc_tools" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+my_cbc_tools
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBkde_data\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fBhpd_interval\fP (post_sample, conf_interval=90, prior_sample=None, param_min=None, param_max=None, prior_method='div_kde', bw_method='scott', bins='rice', root_frac=(0\&.5, 0\&.5), pdf_guess_fac=1\&., pdf_guess=None, xtol=1e\-7, ftol=1e\-10, return_sample=False, return_size=2000, show_kde=False, debug=False)"
+.br
+.ti -1c
+.RI "def \fBcal_sample_property\fP (sample, conf_interval=90\&., method='median', diff=False)"
+.br
+.ti -1c
+.RI "def \fBcal_pdf_hpd\fP (x, pdf, conf_interval=90\&., debug=False)"
+.br
+.ti -1c
+.RI "def \fBcal_acl\fP (sample, nlags=128, window=5, show_plot=False, verbose=False)"
+.br
+.ti -1c
+.RI "def \fBplot_single\fP (sample, true_value=None, percentiles=[5\&., 50\&., 95\&.], bins='auto', xlabel='x', xscale='linear', xmin=None, xmax=None)"
+.br
+.ti -1c
+.RI "def \fBplot_density\fP (sample1, sample2, true_values=None, xlabel=None, ylabel=None, m_pt=[5, 50, 95], c_pt=[68\&.3, 95\&.5], lower_1=None, upper_1=None, lower_2=None, upper_2=None, **kargs)"
+.br
+.ti -1c
+.RI "def \fBplot_unique\fP (sample, show_repeated=False)"
+.br
+.ti -1c
+.RI "def \fBcal_kldiv\fP (sample1, sample2, base=2\&., bw_method='scott', scale_th=1e\-8, bins='rice', use_kde=True, verbose=False, cal_jsd=False)"
+.br
+.ti -1c
+.RI "def \fBplot_corr\fP (samples, names=None, cluster=True, metric_par=(2, 4), cmap='Blues', **kargs)"
+.br
+.ti -1c
+.RI "def \fBcompare_sample_plots\fP (samples, percentiles=[5\&., 50\&., 95\&.], labels=None, xlabel='x')"
+.br
+.ti -1c
+.RI "def \fBcompare_two_sample_stats\fP (sample1, sample2)"
+.br
+.ti -1c
+.RI "def \fBcompare_two_sample_plots\fP (sample1, sample2, percentiles=[5\&., 50\&., 95\&.], xlabel='x', xscale='linear', xmin=None, xmax=None, bins='auto', histtype='bar', c1=None, c2=None, name1=None, name2=None)"
+.br
+.ti -1c
+.RI "def \fBcompare_two_samples\fP (sample1, sample2)"
+.br
+.ti -1c
+.RI "def \fBcompare_two_sample_pairs\fP (pair1, pair2, xlabel=None, ylabel=None, colors=['c', 'm'], lower_1=None, upper_1=None, lower_2=None, upper_2=None, m_pt=[5, 50, 95], c_pt=[68\&.3, 95\&.5], plot_config=None)"
+.br
+.ti -1c
+.RI "def \fBdynamic_single\fP (sample, fixed_sample=None, frames=20, wait_time=0\&.5, xbound=None, scale_fac=1\&.2, bins='auto', percentiles=[5\&., 50\&., 95\&.])"
+.br
+.ti -1c
+.RI "def \fBdynamic_walkers\fP (sample, binned_steps=2, wait_time=0\&.5, xbound=None, scale_fac=1\&.2, bins='auto', percentiles=[5\&., 50\&., 95\&.])"
+.br
+.ti -1c
+.RI "def \fBget_lt_prior_from_m12l12\fP (size, m1_l, m1_u, l1_l, l1_u, m2_l=None, m2_u=None, l2_l=None, l2_u=None, mc_l=0, mc_u=np\&.inf, q_l=1\&., q_u=np\&.inf)"
+.br
+.ti -1c
+.RI "def \fBget_lt_prior_from_mcql12\fP (size, mc_l, mc_u, q_l, q_u, l1_l, l1_u, m1_l=0, m1_u=np\&.inf, m2_l=None, m2_u=None, l2_l=None, l2_u=None)"
+.br
+.ti -1c
+.RI "def \fBplot_mass_range\fP (m1_range, mc_range, q_range, m2_range=None)"
+.br
+.ti -1c
+.RI "def \fBmclt_from_m12l12\fP (mass1, mass2, lambda1, lambda2)"
+.br
+.ti -1c
+.RI "def \fBmcq_from_m12\fP (mass1, mass2)"
+.br
+.ti -1c
+.RI "def \fBm12_from_mcq\fP (mchirp, q)"
+.br
+.ti -1c
+.RI "def \fBlambda_tilde\fP (mass1, mass2, lambda1, lambda2)"
+.br
+.ti -1c
+.RI "def \fBq12_from_qtm\fP (qt, qm, root_choose='+')"
+.br
+.ti -1c
+.RI "def \fBfp\fP (fname, io_state='r')"
+.br
+.ti -1c
+.RI "def \fBget_txt_pars\fP (input_file, delimiter=None)"
+.br
+.ti -1c
+.RI "def \fBget_hdf_pars\fP (fpath, param_path='/data/posterior', data_type='dataframe')"
+.br
+.ti -1c
+.RI "def \fBload_txt\fP (input_file, params_list=None, delimiter=' ')"
+.br
+.ti -1c
+.RI "def \fBload_hdf\fP (fpath, data_path='/samples', params_list=None, data_type='pycbc', pt_sampler=False)"
+.br
+.ti -1c
+.RI "def \fBload_thin_hdf\fP (fpath, data_path, params, pt_sampler=True, flatten=True)"
+.br
+.ti -1c
+.RI "def \fBwrite_txt\fP (filename, data_list, title_list, fill_width=10)"
+.br
+.ti -1c
+.RI "def \fBdownsample\fP (array, size)"
+.br
+.ti -1c
+.RI "def \fBunique_2darray\fP (array)"
+.br
+.ti -1c
+.RI "def \fBtime_before_merger\fP (f_low, chirp_m)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "float \fBp_mks_to_mev\fP = 1\&.60218e32"
+.br
+.ti -1c
+.RI "float \fBe_mks_to_mev\fP = 1\&.782661907e15"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "def my_cbc_tools\&.cal_acl ( sample,  nlags = \fC128\fP,  window = \fC5\fP,  show_plot = \fCFalse\fP,  verbose = \fCFalse\fP)"
+
+.PP
+.nf
+Calculate acl.
+
+Parameters
+----------
+sample: 1D array like
+    Sample to calculate acl.
+nlags: int, optional
+    Time lag that should be used to calculate acf.
+window: int
+    When index>window*(1+2*sum(auto_cor, from 0 to index)), stop 
+    accumulating acl.
+show_plot: bool, optional
+    Show plot.
+verbose: bool, optional
+    Print important intermediate results.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 259 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.cal_kldiv ( sample1,  sample2,  base = \fC2\&.\fP,  bw_method = \fC'scott'\fP,  scale_th = \fC1e\-8\fP,  bins = \fC'rice'\fP,  use_kde = \fCTrue\fP,  verbose = \fCFalse\fP,  cal_jsd = \fCFalse\fP)"
+
+.PP
+.nf
+Calculate Kullback-Leibler divergence: KL(sample1|sample2)
+
+Parameters
+----------
+sample1: 1D array like
+    sample1 to calculate
+sample2: 1D array like
+    sample2 to calculate
+base: float, optional
+    log base to calculate KL
+bw_method: bw_method
+    see doc of scipy.stats.gaussian_kde
+scale_th: float, optional
+    bins with hist<scal_th/bin_num will be ignored to avoid bias
+bins: bins 
+    see doc of numpy.histogram
+use_kde: bool, optional
+    use KDE method to mimic sample behavior or just use histogram method
+verbose: bool, optional
+    set to true to show important results
+cal_jsd: bool, optional
+    set to true to calculate Jensen-Shannon divergence
+
+Returns
+-------
+divergence: float
+    return JDS if cal_jsd else KLD
+
+.fi
+.PP
+ 
+.PP
+Definition at line 442 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.cal_pdf_hpd ( x,  pdf,  conf_interval = \fC90\&.\fP,  debug = \fCFalse\fP)"
+
+.PP
+.nf
+Return lower HPD confidence bound, median, upper HPD confidence bound of a 
+function. x and pdf must have the same size and been normalized. x do not need to be 
+equally separated. More pdf sample gives more accurate HPD interval.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 223 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.cal_sample_property ( sample,  conf_interval = \fC90\&.\fP,  method = \fC'median'\fP,  diff = \fCFalse\fP)"
+
+.PP
+.nf
+Return  lower confidence bound, mean(or median), upper confidence bound. If diff
+is set to True, return (middle-lower, middle, upper-middle)
+
+.fi
+.PP
+ 
+.PP
+Definition at line 209 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.compare_sample_plots ( samples,  percentiles = \fC[5\&., 50\&., 95\&.]\fP,  labels = \fCNone\fP,  xlabel = \fC'x'\fP)"
+
+.PP
+.nf
+Compare multi samples.
+
+Parameters
+----------
+percentiles: list of float
+    Percentiles to be shown.
+labels: labels to show
+
+.fi
+.PP
+ 
+.PP
+Definition at line 569 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.compare_two_sample_pairs ( pair1,  pair2,  xlabel = \fCNone\fP,  ylabel = \fCNone\fP,  colors = \fC['c', 'm']\fP,  lower_1 = \fCNone\fP,  upper_1 = \fCNone\fP,  lower_2 = \fCNone\fP,  upper_2 = \fCNone\fP,  m_pt = \fC[5, 50, 95]\fP,  c_pt = \fC[68\&.3, 95\&.5]\fP,  plot_config = \fCNone\fP)"
+
+.PP
+.nf
+Compare two variable density plots using PyCBC.
+
+Parameters
+----------
+pair1: array of shape (2, N)
+    first pair of array to show
+pair2: array of shape (2, N)
+    second pair of array to show
+m_pt: list of float 
+    marginal_percentiles
+c_pt: list of float  
+    contour_percentiles
+
+.fi
+.PP
+ 
+.PP
+Definition at line 723 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.compare_two_sample_plots ( sample1,  sample2,  percentiles = \fC[5\&., 50\&., 95\&.]\fP,  xlabel = \fC'x'\fP,  xscale = \fC'linear'\fP,  xmin = \fCNone\fP,  xmax = \fCNone\fP,  bins = \fC'auto'\fP,  histtype = \fC'bar'\fP,  c1 = \fCNone\fP,  c2 = \fCNone\fP,  name1 = \fCNone\fP,  name2 = \fCNone\fP)"
+
+.PP
+.nf
+Compare two samples.
+
+Parameters
+----------
+percentiles: list of float
+    Percentiles to be shown.
+bins: bins
+    see numpy.histogram
+histtype: histtype
+    see pyplot.hist
+
+.fi
+.PP
+ 
+.PP
+Definition at line 630 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.compare_two_sample_stats ( sample1,  sample2)"
+
+.PP
+.nf
+Compare stats of two samples.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 610 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.compare_two_samples ( sample1,  sample2)"
+
+.PP
+Definition at line 705 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.downsample ( array,  size)"
+
+.PP
+.nf
+Down sample an 1darray or 2darray to a smaller size.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1324 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.dynamic_single ( sample,  fixed_sample = \fCNone\fP,  frames = \fC20\fP,  wait_time = \fC0\&.5\fP,  xbound = \fCNone\fP,  scale_fac = \fC1\&.2\fP,  bins = \fC'auto'\fP,  percentiles = \fC[5\&., 50\&., 95\&.]\fP)"
+
+.PP
+.nf
+Show how a sample varies with time.
+
+Parameters
+----------
+sample: array of shape (1, N)
+    Sample that to be shown dynamically.
+fixed_sample: array, optional
+    Sample to compare, do not vary with time.
+frames: int, optional
+    Frame number of gif.
+wait_time: float, optional
+    Time to wait per frame(in unit of second).
+xbound: tuple of float
+    X axis range, in the shape of (lower, upper).
+scale_fac: float, optional
+    Factor to scale x,y range.
+percentiles: list of float, optional
+    Percentiles to be shown.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 765 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.dynamic_walkers ( sample,  binned_steps = \fC2\fP,  wait_time = \fC0\&.5\fP,  xbound = \fCNone\fP,  scale_fac = \fC1\&.2\fP,  bins = \fC'auto'\fP,  percentiles = \fC[5\&., 50\&., 95\&.]\fP)"
+
+.PP
+.nf
+Show how a MCMC sample with multiple walkers varies with time.
+
+Parameters
+----------
+sample: array of shape (walker, steps)
+    Sample that to be shown dynamically.
+binned_steps: array, optional
+    Every binned_steps steps will be binned together to show.
+frames: int, optional
+    Frame number of gif.
+wait_time: float, optional
+    Time to wait per frame(in unit of second).
+xbound: tuple of float
+    X axis range, in the shape of (lower, upper).
+scale_fac: float, optional
+    Factor to scale x,y range.
+percentiles: list of float, optional
+    Percentiles to be shown.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 837 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.fp ( fname,  io_state = \fC'r'\fP)"
+
+.PP
+Definition at line 1083 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.get_hdf_pars ( fpath,  param_path = \fC'/data/posterior'\fP,  data_type = \fC'dataframe'\fP)"
+
+.PP
+.nf
+Read hdf data.
+
+Parameters
+----------
+fpath: string
+    Path to file.
+param_path: string
+    Group name of parameter position, should not include trailing '/'.
+data_type: string, optional ["dataset", "dict", "dataframe"]
+    The way that data is structured.
+
+Returns
+-------
+list of strings
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1107 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.get_lt_prior_from_m12l12 ( size,  m1_l,  m1_u,  l1_l,  l1_u,  m2_l = \fCNone\fP,  m2_u = \fCNone\fP,  l2_l = \fCNone\fP,  l2_u = \fCNone\fP,  mc_l = \fC0\fP,  mc_u = \fCnp\&.inf\fP,  q_l = \fC1\&.\fP,  q_u = \fCnp\&.inf\fP)"
+
+.PP
+.nf
+Get lambda tilde prior sample from uniform parameters(m1, m2, l1, l2), 
+and constraints, parameters set to none will be set equal to similar '1' 
+parameter by default, egg., if m2_l is not given, it will be set equal to 
+m1_l by default.
+
+Parameters
+----------
+size: int
+    the sample size wanted.
+'x'_l: float
+    lower limit of parameter 'x'.
+'x'_u: float
+    upper limit of parameter 'x'.
+
+Returns
+-------
+prior sample of lambda tilde: list
+
+.fi
+.PP
+ 
+.PP
+Definition at line 916 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.get_lt_prior_from_mcql12 ( size,  mc_l,  mc_u,  q_l,  q_u,  l1_l,  l1_u,  m1_l = \fC0\fP,  m1_u = \fCnp\&.inf\fP,  m2_l = \fCNone\fP,  m2_u = \fCNone\fP,  l2_l = \fCNone\fP,  l2_u = \fCNone\fP)"
+
+.PP
+.nf
+Get lambda tilde prior sample from uniform parameters(mc, q, l1, l2), 
+and constraints, parameters set to none will be set equal to similar '1' 
+parameter by default, egg., if m2_l is not given, it will be set equal to 
+m1_l by default.
+
+Parameters
+----------
+size: int
+    the sample size wanted.
+'x'_l: float
+    lower limit of parameter 'x'.
+'x'_u: float
+    upper limit of parameter 'x'.
+
+Returns
+-------
+prior sample of lambda tilde: list
+
+.fi
+.PP
+ 
+.PP
+Definition at line 957 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.get_txt_pars ( input_file,  delimiter = \fCNone\fP)"
+
+.PP
+.nf
+Get parameter names in a txt file using the first line.
+
+Parameters
+----------
+input_file: string
+    Name of the input txt file.
+delimiter: string, optional
+    Characters to split title.
+
+Returns
+-------
+list of strings
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1087 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.hpd_interval ( post_sample,  conf_interval = \fC90\fP,  prior_sample = \fCNone\fP,  param_min = \fCNone\fP,  param_max = \fCNone\fP,  prior_method = \fC'div_kde'\fP,  bw_method = \fC'scott'\fP,  bins = \fC'rice'\fP,  root_frac = \fC(0\&.5, 0\&.5)\fP,  pdf_guess_fac = \fC1\&.\fP,  pdf_guess = \fCNone\fP,  xtol = \fC1e\-7\fP,  ftol = \fC1e\-10\fP,  return_sample = \fCFalse\fP,  return_size = \fC2000\fP,  show_kde = \fCFalse\fP,  debug = \fCFalse\fP)"
+
+.PP
+.nf
+Calculate Highest Posterior Density Interval for given posterior sample
+
+Parameters
+----------
+post_sample: one dimensional array like 
+    posterior sample to calculate HPD.
+conf_interval: float
+    credible interval of HPD.
+prior_sample: one dimensional array like, optional
+    prior sample, if used, will calculate HPD of posterior/prior.
+param_min: float, optional
+     lower bound to normalize KDE, if not given, simply min of all sample.
+param_max: float, optional
+     upper bound to normalize KDE, if not given, simply max of all sample.
+prior_method: str, optional
+    determine which method to divide post by prior, 'div_kde' or 'div_bin'
+bw_method: str, scalar or callable, optional
+    see scipy.stats.gaussian_kde
+bins: str, int or 1d array like:
+    see numpy.histogram
+pdf_guess_fac: float, optional
+    a avoid the default value of pdf_guess is the highest value of pdf
+root_frac: tuple of two float, optional
+    search first root in (param_min, param_min+root_frac[0]*(param_max-
+    param_min)), and second root in (param_min+root_frac[1]*(param_max-
+    param_min), param_max)
+pdf_guess: float, optional
+    if given, will not find intersection, use pdf_gusess to get interval
+xtol: float
+    see scipy.optimize.fmin
+ftol: float
+    see scipy.optimize.fmin
+return_sample: bool, optional
+    if given return kde samples of return_size
+show_kde: bool, optional
+    if set to true, plot kde figure.
+debug: bool, optional
+    if set to true, print important intermediary results
+
+Returns
+-------
+Sample of two dimension with 'x' the first axis and 'y' the second
+    if return_sample is set to True
+HPD interval:tuple
+    (HPD lower, PPD median, HPD upper)
+
+.fi
+.PP
+ 
+.PP
+Definition at line 24 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.lambda_tilde ( mass1,  mass2,  lambda1,  lambda2)"
+
+.PP
+Definition at line 1063 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.load_hdf ( fpath,  data_path = \fC'/samples'\fP,  params_list = \fCNone\fP,  data_type = \fC'pycbc'\fP,  pt_sampler = \fCFalse\fP)"
+
+.PP
+.nf
+Read hdf data.
+
+Parameters
+----------
+fpath: string
+    Path to file.
+data_path: string
+    Group name of wanted dataset, should not include trailing '/'.
+params_list: list of string, optional
+    Parameters wanted.
+data_type: string, optional 
+    can be either ["dataset", "dict", "dataframe"], or ["pycbc", "ligo", "bilby"].
+    The way that data is structured.
+result_type: string, optional 
+    How did you get the result file.
+pt_sampler: bool, optional
+    Whether the results are sampled by pt sampler, set to True to read samples at
+    zero temperature.
+
+Returns
+-------
+numpy.ndarray
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1177 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.load_thin_hdf ( fpath,  data_path,  params,  pt_sampler = \fCTrue\fP,  flatten = \fCTrue\fP)"
+
+.PP
+.nf
+load data from a hdf file.
+
+Parameters
+----------
+fpath: string
+    Name of the input hdf file
+data_path: string
+    path of wanted data
+params: string
+    List of the parameters needed to load from the hdf file
+pt_sampler: bool, optional
+    Whether the results are generated by pt_sampler.
+flatten: bool, optional
+    Whether to return a flattened array.
+
+Returns
+-------
+numpy.ndarray
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1239 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.load_txt ( input_file,  params_list = \fCNone\fP,  delimiter = \fC' '\fP)"
+
+.PP
+.nf
+Load data from a txt file.
+
+Parameters
+----------
+input_file: string
+    Name of the input txt file.
+params_list: string, optional
+    List of the parameters needed to load from the txt file.
+delimiter: string, optional
+    Characters to split title.
+
+Returns
+-------
+numpy.ndarray
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1144 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.m12_from_mcq ( mchirp,  q)"
+
+.PP
+Definition at line 1057 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.mclt_from_m12l12 ( mass1,  mass2,  lambda1,  lambda2)"
+
+.PP
+Definition at line 1045 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.mcq_from_m12 ( mass1,  mass2)"
+
+.PP
+Definition at line 1051 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.plot_corr ( samples,  names = \fCNone\fP,  cluster = \fCTrue\fP,  metric_par = \fC(2, 4)\fP,  cmap = \fC'Blues'\fP, ** kargs)"
+
+.PP
+.nf
+Plot cross correlation map.
+
+Parameters
+----------
+samples: array like
+    samples to calculate correlation heat/cluster map
+names: list of string, optional
+    name of every dimension of samples
+cluster: bool, optional
+    plot a cluster map or heat map
+metric_par: tuple of int, optional
+    the metric is 'sin(t)^a*(sum_i{abs(u_i)-abs(v_i)})^b'
+cmap: cmap 
+    cmap of matplotlib
+kargs: dict
+    transfered to heat map or cluster map
+
+Returns
+-------
+    None
+
+.fi
+.PP
+ 
+.PP
+Definition at line 521 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.plot_density ( sample1,  sample2,  true_values = \fCNone\fP,  xlabel = \fCNone\fP,  ylabel = \fCNone\fP,  m_pt = \fC[5, 50, 95]\fP,  c_pt = \fC[68\&.3, 95\&.5]\fP,  lower_1 = \fCNone\fP,  upper_1 = \fCNone\fP,  lower_2 = \fCNone\fP,  upper_2 = \fCNone\fP, ** kargs)"
+
+.PP
+.nf
+Plot two variable density plot using PyCBC.
+
+Parameters
+----------
+m_pt: list of float
+    marginal_percentiles
+c_pt: list of float
+    contour_percentiles
+
+.fi
+.PP
+ 
+.PP
+Definition at line 365 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.plot_mass_range ( m1_range,  mc_range,  q_range,  m2_range = \fCNone\fP)"
+
+.PP
+.nf
+Show allowed range of mass given constraint of mass1, mass2, chirp
+mass and mass ratio, a range should be a tuple like (lower, upper) 
+
+Parameters
+----------
+m1_range: tuple of float
+    range of mass1
+mc_range: tuple of float
+    range of chirp mass
+q_range: tuple of float
+    range of mass ratio
+m2_range: tuple of float, optional
+    range of mass2, set to m1_range by default
+
+.fi
+.PP
+ 
+.PP
+Definition at line 998 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.plot_single ( sample,  true_value = \fCNone\fP,  percentiles = \fC[5\&., 50\&., 95\&.]\fP,  bins = \fC'auto'\fP,  xlabel = \fC'x'\fP,  xscale = \fC'linear'\fP,  xmin = \fCNone\fP,  xmax = \fCNone\fP)"
+
+.PP
+.nf
+Show single sample properties.
+
+Parameters
+----------
+sample: 1D array like
+    Sample to show properties
+percentiles: list of float
+    Percentiles to be shown.
+bins: see numpy.histogram
+
+.fi
+.PP
+ 
+.PP
+Definition at line 314 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.plot_unique ( sample,  show_repeated = \fCFalse\fP)"
+
+.PP
+.nf
+Show how unique data points in a sample vary with time.
+
+Parameters
+----------
+sample: 1D array like
+    If the data is two dimensional, it will be averaged along the 0-axis.
+show_repeated: bool, optional
+    Whether to show the samples repeated.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 394 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.q12_from_qtm ( qt,  qm,  root_choose = \fC'+'\fP)"
+
+.PP
+Definition at line 1067 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.time_before_merger ( f_low,  chirp_m)"
+
+.PP
+Definition at line 1358 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.unique_2darray ( array)"
+
+.PP
+.nf
+Unique a 2D-array.
+
+.fi
+.PP
+ 
+.PP
+Definition at line 1342 of file my_cbc_tools\&.py\&.
+.SS "def my_cbc_tools\&.write_txt ( filename,  data_list,  title_list,  fill_width = \fC10\fP)"
+
+.PP
+Definition at line 1283 of file my_cbc_tools\&.py\&.
+.SH "Variable Documentation"
+.PP 
+.SS "float my_cbc_tools\&.e_mks_to_mev = 1\&.782661907e15"
+
+.PP
+Definition at line 14 of file my_cbc_tools\&.py\&.
+.SS "float my_cbc_tools\&.p_mks_to_mev = 1\&.60218e32"
+
+.PP
+Definition at line 13 of file my_cbc_tools\&.py\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for my_cbc_tools from the source code\&.
