@@ -23,3 +23,13 @@ Requirement list:
 
 - pandas, statsmodels, pycbc, seaborn, h5py
 
+
+
+Usage:
+
+- add code below to your .bashrc file
+
+```shell
+export PYTHONPATH="$PYTHONPATH:your_download_path/my_cbc_tools/source"
+```
+
