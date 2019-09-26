@@ -27,7 +27,7 @@ Requirement list:
 
 Usage:
 
-- add code below to your .bashrc file
+- localize code below and add it to your .bashrc file
 
 ```shell
 export PYTHONPATH="$PYTHONPATH:your_download_path/my_cbc_tools/source"
