@@ -11,8 +11,24 @@ import matplotlib.pyplot as plt
 
 
 p_mks_to_mev = 1.60218e32
-e_mks_to_mev = 1.782661907e15
+rho_mks_to_mev = 1.782661907e15
+p_geo_to_mks = 8.262346242653866e-45
+rho_geo_to_mks = 7.425826474101849e-28
+p_cactus_to_cgs = 1.80123683248503e-39
+rho_cactus_to_cgs = 1.61887093132742e-18
 
+my_colors = [(0.9756082618370889, 0.8819298114153367, 0.15511474788168034), 
+            (0.8816686822876404, 0.16723558098223046, 0.8232440687726762),
+            (0.09474917006457495, 0.7640816932916719, 0.7557809243480891),
+            (0.9869622156803993, 0.19773950935450402, 0.11477842930491322),
+            (0.0013876747101176923, 0.09891733102233669, 0.21359016748958548), 
+            (0.005058894123937008, 0.19158725163173618, 0.8274597939134388),
+            (0.14066189835392162, 0.9108866866830906, 0.43832418793816164),
+            (0.4795075899295418, 0.09701374232611071, 0.867789302976063), 
+            (0.101188878202501, 0.4761126547943416, 0.8337685909406162),
+            (0.732657217071116, 0.028265149660644195, 0.44243490354748116),
+            (0.47075839622563465, 0.1865018861754263, 0.27292819189751183), 
+            (0.012832705028862468, 0.6240926466800075, 0.07013874925574748)] 
 
 #============================================================================#
 #                                                                            #
@@ -566,7 +582,8 @@ def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues"
     plt.show()
 
 
-def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabel='x'):
+def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabel='x', \
+                         colors=None):
     """Compare multi samples.
 
     Parameters
@@ -585,12 +602,16 @@ def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabe
     mmax = max([max(s) for s in samples])
     x = np.linspace(mmin, mmax, 2000)
     y_max = 0
-    for lb, sample in zip(labels, samples):
+    for i, (lb, sample) in enumerate(zip(labels, samples)):
         kde = gaussian_kde(sample, bw_method="scott")
         y = kde(x)
         ym = max(y)
         y_max = max(ym, y_max)
-        color = (np.random.rand(), np.random.rand(), np.random.rand())
+        if hasattr(colors, '__iter__'):
+            color = colors[i]
+        else:
+            color = (np.random.rand(), np.random.rand(), np.random.rand())
+            print("You have chose color {} for line {}".format(color, i+1))
         perc = [np.percentile(sample, p) for p in percentiles]
         plt.plot(x, y, c=color, label=str(lb), lw=2)
         plt.vlines(perc, 0, ym, colors=color, lw=0.8, linestyle='--')
