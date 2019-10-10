@@ -59,7 +59,7 @@ myt.plot_single(m1, true_value=5.9, bins=20, xlabel=r'$M_{\odot}$', percentiles=
 5. Compare two pairs of samples:
 
 ```python
-myt.compare_two_sample_pairs([m4,m3], [m3,m4], xlabel=r'$R/km$', colors=['m','c'], ylabel=r'$M/M_{\odot}$', c_pt=contour_percentiles, m_pt=marginal_percentles)
+myt.compare_two_sample_pairs([m4,m3], [m3,m4], xlabel=r'$R/km$', colors=['m','c'], ylabel=r'$M/M_{\odot}$', c_pt=contour_percentiles, m_pt=marginal_percentiles)
 ```
 
 
