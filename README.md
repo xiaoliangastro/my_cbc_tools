@@ -7,13 +7,14 @@ This code contains  :
 - Useful Constants: Combined constants that will be used frequently
 
 - Calculate & Show Sample Properties: Calculate & show properties of an array
+
 - Show Sample Differences: Show differences of different samples
 
 - Parameter Transformations: Combined pycbc tools to transform parameters fluently
 
 - Data Io: Read and write data
 
-- Other Utils: Other useful tookit
+- Other Utils: Other useful toolkit
 
 
 
