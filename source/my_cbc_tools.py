@@ -345,6 +345,8 @@ def plot_single(sample, true_value=None, percentiles=[5., 50., 95.], bins='auto'
     percentiles: list of float
         Percentiles to be shown.
     bins: see numpy.histogram
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
 
     from scipy.stats import gaussian_kde
@@ -399,6 +401,8 @@ def plot_density(sample1, sample2, true_values=None, xlabel=None, ylabel=None, \
         marginal_percentiles
     c_pt: list of float
         contour_percentiles
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
 
     from pycbc.results.scatter_histograms import create_multidim_plot
@@ -429,6 +433,8 @@ def plot_unique(sample, show_repeated=False, filename=None):
         If the data is two dimensional, it will be averaged along the 0-axis.
     show_repeated: bool, optional
         Whether to show the samples repeated.
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
     sample = np.array(sample)
     if len(sample.shape)==2:
@@ -548,7 +554,7 @@ def cal_kldiv(sample1, sample2, base=2., bw_method='scott', scale_th=1e-8, \
 
 
 def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15], \
-    c_pt=68.3, addtext=None, textloc=[0.6, 0.8, 0.05, 0.025]):
+    c_pt=68.3, addtext=None, textloc=[0.6, 0.8, 0.05, 0.025], filename=None):
     """Plot groups of multi-dim data.
 
     Parameters
@@ -567,6 +573,8 @@ def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15]
         tag of each group
     textloc: list, request only if addtext is not None
         control where to put the text, format is [xbegin, ybegin, xshift, yshift]
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     
     Returns
     -------
@@ -612,7 +620,10 @@ def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15]
         if addtext is not None:
             plt.annotate(addtext[j], xy=(x_begin-x_shift*j, y_begin-y_shift*j), xycoords='figure fraction', \
                 color=colors[j], fontsize=20)
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues", filename=None, **kargs):
@@ -630,6 +641,8 @@ def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues"
         the metric is 'sin(t)^a*(sum_i{abs(u_i)-abs(v_i)})^b'
     cmap: cmap 
         cmap of matplotlib
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     kargs: dict
         transfered to heat map or cluster map
     
@@ -675,6 +688,8 @@ def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabe
     percentiles: list of float
         Percentiles to be shown.
     labels: labels to show
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
 
     from scipy.stats import gaussian_kde
@@ -736,6 +751,11 @@ def compare_two_sample_stats(sample1, sample2):
 
 
 def plot_crude_diff(lmh1, lmh2, lb1='1', lb2='2', xlabel='x', filename=None):
+    """
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
+    """
+
     import mcerp
     mmin, mmax = min(lmh1[0], lmh2[0]), max(lmh1[2], lmh2[2])
     dist1 = mcerp.PERT(lmh1[0], lmh1[1], lmh1[2])
@@ -766,6 +786,8 @@ def compare_two_sample_plots(sample1, sample2, percentiles=[5., 50., 95.], \
         see numpy.histogram
     histtype: histtype
         see pyplot.hist
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
 
     from scipy.stats import gaussian_kde
@@ -831,6 +853,11 @@ def compare_two_sample_plots(sample1, sample2, percentiles=[5., 50., 95.], \
 
 
 def compare_two_samples(sample1, sample2, filename=None):
+    
+    """
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
+    """
     compare_two_sample_stats(sample1, sample2)
     prop1 = np.array(cal_sample_property(sample1, method="median"))
     prop2 = np.array(cal_sample_property(sample2, method="median"))
@@ -864,6 +891,8 @@ def compare_two_sample_pairs(pair1, pair2, xlabel=None, ylabel=None, colors=['c'
         marginal_percentiles
     c_pt: list of float  
         contour_percentiles
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
 
     from pycbc.results.scatter_histograms import create_multidim_plot
@@ -1133,6 +1162,8 @@ def plot_mass_range(m1_range, mc_range, q_range, m2_range=None, filename=None):
         range of mass ratio
     m2_range: tuple of float, optional
         range of mass2, set to m1_range by default
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
     """
     from pycbc.conversions import mass1_from_mchirp_q as m1_from_mcq
     from pycbc.conversions import mass2_from_mchirp_q as m2_from_mcq
