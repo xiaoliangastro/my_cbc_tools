@@ -222,7 +222,7 @@ def hpd_interval(post_sample, conf_interval=90, prior_sample=None, \
     return hpd_lower, hpd_median, hpd_upper
 
 
-def cal_sample_property(sample, conf_interval=90., method="median", diff=False):
+def cal_sample_property(sample, conf_interval=90., method="median", diff=True, round_level=2):
     """Return  lower confidence bound, mean(or median), upper confidence bound. If diff
     is set to True, return (middle-lower, middle, upper-middle)
     """
@@ -233,13 +233,13 @@ def cal_sample_property(sample, conf_interval=90., method="median", diff=False):
     if diff:
         conf_lower = out-conf_lower
         conf_upper = conf_upper-out
-    return conf_lower, out, conf_upper
+    return np.round([conf_lower, out, conf_upper], round_level)
 
 
-def cal_pdf_hpd(x, pdf, conf_interval=90., debug=False):
-    """Return lower HPD confidence bound, median, upper HPD confidence bound of a 
-    function. x and pdf must have the same size and been normalized. x do not need to be 
-    equally separated. More pdf sample gives more accurate HPD interval.
+def cal_pdf_property(x, pdf, conf_interval=90., hpd=False, diff=True, round_level=2, debug=False):
+    """Return lower (HPD)confidence bound, median, upper (HPD)confidence bound of a 
+    function. x and pdf must have the same size. x do not need to be equally separated and 
+    pdf do not need to be normalized. More pdf samples give more accurate properties.
     """
     from scipy.optimize import fmin
 
@@ -253,23 +253,30 @@ def cal_pdf_hpd(x, pdf, conf_interval=90., debug=False):
 
     pdf = (pdf[:-1]+pdf[1:])/2.
     dx = x[1:]-x[:-1]
-    intersec = fmin(find_intersec, x0=max(pdf)/2., args=(dx, pdf))
-    larger_than_intersec_idxes = np.where(pdf>intersec)[0]
-    lower_idx = larger_than_intersec_idxes[0]
-    upper_idx = larger_than_intersec_idxes[-1]
-    interg_pdf = []
-    interg_pdf.append(0.)
-    for i, (ddx, ppdf) in enumerate(zip(dx, pdf)):
-        interg_pdf.append(ddx*ppdf+interg_pdf[i])
-    median_idx = np.where(np.array(interg_pdf)>0.5)[0][0]
+    pdf /= sum(dx*pdf)
+    cumsum_pdf = np.insert(np.cumsum(pdf*dx), 0, 0.0)
+    if debug:
+        print("normalized: {}".format(cumsum_pdf[-1]))
+    if hpd:
+        intersec = fmin(find_intersec, x0=max(pdf)/2., args=(dx, pdf), disp=False)
+        larger_than_intersec_idxes = np.where(pdf>intersec)[0]
+        lower_idx = larger_than_intersec_idxes[0]
+        upper_idx = larger_than_intersec_idxes[-1]
+    else:
+        conf_l = (100.-conf_interval)/2./100.
+        conf_u = (100.+conf_interval)/2./100.
+        lower_idx = np.where(cumsum_pdf>=conf_l)[0][0]
+        upper_idx = np.where(cumsum_pdf>=conf_u)[0][0]
+    median_idx = np.where(cumsum_pdf>=0.5)[0][0]
     if debug:
         print("intersection:{}".format(intersec))
         print("idx_lower:{},idx_median:{},idx_upper:{}".format(lower_idx,median_idx,upper_idx))
-        print("lower:{},median:{},upper:{}".format(interg_pdf[lower_idx],interg_pdf[median_idx],interg_pdf[upper_idx]))
-    median = x[median_idx]
-    lower = x[lower_idx]
-    upper = x[upper_idx]
-    return lower, median, upper
+        print("lower:{},median:{},upper:{}".format(cumsum_pdf[lower_idx],cumsum_pdf[median_idx],cumsum_pdf[upper_idx]))
+    lower, median, upper = x[lower_idx], x[median_idx], x[upper_idx]
+    if diff:
+        lower = median-lower
+        upper = upper-median
+    return np.round([lower, median, upper], round_level)
 
 
 def cal_acl(sample, nlags=128, window=5, show_plot=False, verbose=False):
@@ -328,7 +335,7 @@ def cal_acl(sample, nlags=128, window=5, show_plot=False, verbose=False):
 
 
 def plot_single(sample, true_value=None, percentiles=[5., 50., 95.], bins='auto', \
-                xlabel='x', xscale='linear', xmin=None, xmax=None):
+                xlabel='x', xscale='linear', xmin=None, xmax=None, filename=None):
     """Show single sample properties.
 
     Parameters
@@ -375,11 +382,14 @@ def plot_single(sample, true_value=None, percentiles=[5., 50., 95.], bins='auto'
     plt.xlabel(xlabel)
     plt.xscale(xscale)
     plt.legend()
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 def plot_density(sample1, sample2, true_values=None, xlabel=None, ylabel=None, \
-                 m_pt=[5, 50, 95], c_pt=[68.3, 95.5], \
+                 m_pt=[5, 50, 95], c_pt=[68.3, 95.5], filename=None, \
                  lower_1=None, upper_1=None, lower_2=None, upper_2=None, **kargs):
     """Plot two variable density plot using PyCBC.
 
@@ -404,10 +414,13 @@ def plot_density(sample1, sample2, true_values=None, xlabel=None, ylabel=None, \
                   maxs={xlabel:upper_1, ylabel:upper_2}, density_cmap='BuPu', \
                   plot_scatter=False, marginal_percentiles=m_pt, \
                   contour_percentiles=c_pt, **kargs)
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
-def plot_unique(sample, show_repeated=False):
+def plot_unique(sample, show_repeated=False, filename=None):
     """Show how unique data points in a sample vary with time.
     
     Parameters
@@ -442,7 +455,10 @@ def plot_unique(sample, show_repeated=False):
         plt.scatter(x2, repeat_s, color='y', s=1, label=label)
     plt.xlabel("step")
     plt.legend()
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 #============================================================================#
@@ -450,9 +466,6 @@ def plot_unique(sample, show_repeated=False):
 #                            Show Sample Differences                         #
 #                                                                            #
 #============================================================================#
-
-
-from scipy.stats import pearsonr
 
 
 def cal_kldiv(sample1, sample2, base=2., bw_method='scott', scale_th=1e-8, \
@@ -534,7 +547,75 @@ def cal_kldiv(sample1, sample2, base=2., bw_method='scott', scale_th=1e-8, \
     return js_div if cal_jsd else kl_div
 
 
-def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues", **kargs):
+def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15], \
+    c_pt=68.3, addtext=None, textloc=[0.6, 0.8, 0.05, 0.025]):
+    """Plot groups of multi-dim data.
+
+    Parameters
+    ----------
+    groupdata: list
+        groups of samples to compare
+    labels: list of string, optional
+        name of every dimension of samples
+    bound: list, optional
+        [[low], [up]] limits of each parameters
+    m_pt: list, default is [15.85, 50, 84.15] 
+        percentiles of every dimension of samples
+    c_pt: float, default is 68.3
+        contour percentile
+    addtext: list, optional
+        tag of each group
+    textloc: list, request only if addtext is not None
+        control where to put the text, format is [xbegin, ybegin, xshift, yshift]
+    
+    Returns
+    -------
+        None
+    """
+    import numpy as np
+    from pycbc.results.scatter_histograms import create_multidim_plot
+    inner_key = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'x', 'y', 'z']
+    dims = len(groupdata[0])
+    select_key = inner_key[0:dims]
+    group_samples = [dict(zip(select_key, data)) for data in groupdata]
+    if bound==None:
+        temp_mins = {key:min([min(samples[key]) for samples in group_samples]) for key in select_key}
+        temp_maxs = {key:max([max(samples[key]) for samples in group_samples]) for key in select_key}
+        shifts = {key:(temp_maxs[key]-temp_mins[key])/100. for key in select_key}
+        mins = {key:temp_mins[key]-shifts[key] for key in select_key}
+        maxs = {key:temp_maxs[key]+shifts[key] for key in select_key}
+    else:
+        mins = dict(zip(select_key, bound[0]))
+        maxs = dict(zip(select_key, bound[1]))
+    if labels is not None:
+        labels = dict(zip(select_key, labels))
+    
+    fig, axes, colors, locs = None, None, ['r', 'g', 'b'], ['left', 'right', 'center']
+    x_begin, y_begin, x_shift, y_shift = textloc
+    for j,samples in enumerate(group_samples):
+        fig, axes = create_multidim_plot(select_key, samples, labels=labels, 
+        mins=mins, maxs=maxs, expected_parameters=None, expected_parameters_color='r', 
+        plot_marginal=True, plot_scatter=False, marginal_percentiles=m_pt, 
+        contour_percentiles=[c_pt], marginal_title=False, marginal_linestyle='-', 
+        zvals=None, show_colorbar=False, cbar_label=None, vmin=None, vmax=None, 
+        scatter_cmap='plasma', plot_density=False, plot_contours=True, density_cmap='BuPu', 
+        contour_color=colors[j], hist_color=colors[j], line_color=colors[j], fill_color=None,
+        use_kombine=False, fig=fig, axis_dict=axes)
+        for i,key in enumerate(select_key):
+            if i==0:
+                axes[(key, key)][0].set_ylabel('PDF')
+            probs = np.percentile(samples[key], m_pt)
+            axes[(key, key)][0].set_title(r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(probs[1], \
+                probs[1]-probs[0], probs[2]-probs[1]), fontsize=10, color=colors[j], loc=locs[j])
+            axes[(key, key)][0].set_xlim(mins[key], maxs[key])
+            axes[(key, key)][0].tick_params(direction='in')
+        if addtext is not None:
+            plt.annotate(addtext[j], xy=(x_begin-x_shift*j, y_begin-y_shift*j), xycoords='figure fraction', \
+                color=colors[j], fontsize=20)
+    plt.show()
+
+
+def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues", filename=None, **kargs):
     """Plot cross correlation map.
 
     Parameters
@@ -579,11 +660,14 @@ def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues"
         mask[np.triu_indices_from(mask, 1)] = True
         with sbn.axes_style("white"):
             sbn.heatmap(corr, cmap=cmap, annot=True, mask=mask, **kargs)
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabel='x', \
-                         colors=None):
+                         colors=None, filename=None):
     """Compare multi samples.
 
     Parameters
@@ -625,7 +709,10 @@ def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabe
     plt.ylabel("PDF")
     plt.xlabel(xlabel)
     plt.legend()
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 def compare_two_sample_stats(sample1, sample2):
@@ -648,10 +735,27 @@ def compare_two_sample_stats(sample1, sample2):
     print("Wald-Wolfowitz run test: {:<+.3E}\t{:<+.3E}".format(run_z,run_p))
 
 
+def plot_crude_diff(lmh1, lmh2, lb1='1', lb2='2', xlabel='x', filename=None):
+    import mcerp
+    mmin, mmax = min(lmh1[0], lmh2[0]), max(lmh1[2], lmh2[2])
+    dist1 = mcerp.PERT(lmh1[0], lmh1[1], lmh1[2])
+    dist2 = mcerp.PERT(lmh2[0], lmh2[1], lmh2[2])
+    dist1.plot(label=lb1)
+    dist2.plot(label=lb2)
+    plt.xlabel(xlabel)
+    plt.xlim(mmin, mmax)
+    plt.ylim(0, None)
+    plt.legend()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
+
+
 def compare_two_sample_plots(sample1, sample2, percentiles=[5., 50., 95.], \
                              xlabel='x', xscale='linear', xmin=None, xmax=None, \
                              bins='auto', histtype='bar', c1=None, c2=None, name1=None, \
-                             name2=None):
+                             name2=None, filename=None):
     """Compare two samples.
 
     Parameters
@@ -720,10 +824,13 @@ def compare_two_sample_plots(sample1, sample2, percentiles=[5., 50., 95.], \
     plt.xlabel(xlabel)
     plt.xscale(xscale)
     plt.legend()
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
-def compare_two_samples(sample1, sample2):
+def compare_two_samples(sample1, sample2, filename=None):
     compare_two_sample_stats(sample1, sample2)
     prop1 = np.array(cal_sample_property(sample1, method="median"))
     prop2 = np.array(cal_sample_property(sample2, method="median"))
@@ -738,12 +845,13 @@ def compare_two_samples(sample1, sample2):
           format(diff_abs[0], diff_abs[1], diff_abs[2]))
     print("((1-2)/2)% lower: {:<+.3E} median: {:<+.3E} upper: {:<+.3E}".\
           format(diff_percent[0], diff_percent[1], diff_percent[2]))
-    compare_two_sample_plots(sample1, sample2)
+    compare_two_sample_plots(sample1, sample2, filename=filename)
 
 
 def compare_two_sample_pairs(pair1, pair2, xlabel=None, ylabel=None, colors=['c', 'm'], \
-                        lower_1=None, upper_1=None, lower_2=None, upper_2=None, \
-                        m_pt=[5, 50, 95], c_pt=[68.3, 95.5], plot_config=None):
+                             lower_1=None, upper_1=None, lower_2=None, upper_2=None, \
+                             m_pt=[5, 50, 95], c_pt=[68.3, 95.5], plot_config=None, \
+                             filename=None):
     """Compare two variable density plots using PyCBC.
 
     Parameters
@@ -777,7 +885,10 @@ def compare_two_sample_pairs(pair1, pair2, xlabel=None, ylabel=None, colors=['c'
         fig, axis_dict = create_multidim_plot(sample.keys(), sample, fig=fig, \
                          axis_dict = axis_dict, contour_color=color, \
                          hist_color = color, line_color=color, **plot_config)
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 def dynamic_single(sample, fixed_sample=None, frames=20, wait_time=0.5, \
@@ -924,13 +1035,6 @@ def dynamic_walkers(sample, binned_steps=2, wait_time=0.5, xbound=None, \
 #============================================================================#
 
 
-from pycbc.conversions import mass1_from_mchirp_q as m1_from_mcq
-from pycbc.conversions import mass2_from_mchirp_q as m2_from_mcq
-from pycbc.conversions import q_from_mass1_mass2 as q_from_m12
-from pycbc.conversions import mchirp_from_mass1_mass2 as mc_from_m12
-from pycbc.conversions import lambda_tilde as lambda_tilde_pycbc
-
-
 def get_lt_prior_from_m12l12(size, m1_l, m1_u, l1_l, l1_u, m2_l=None, \
     m2_u=None, l2_l=None, l2_u=None, mc_l=0, mc_u=np.inf, q_l=1., q_u=np.inf):
     """Get lambda tilde prior sample from uniform parameters(m1, m2, l1, l2), 
@@ -953,6 +1057,8 @@ def get_lt_prior_from_m12l12(size, m1_l, m1_u, l1_l, l1_u, m2_l=None, \
     """
 
     from pycbc.distributions import Uniform, JointDistribution
+    from pycbc.conversions import mchirp_from_mass1_mass2 as mc_from_m12
+    from pycbc.conversions import q_from_mass1_mass2 as q_from_m12
 
     def constraint(param):
         mc = mc_from_m12(param["mass1"], param["mass2"])
@@ -1013,7 +1119,7 @@ def get_lt_prior_from_mcql12(size, mc_l, mc_u, q_l, q_u, l1_l, l1_u, \
     return lt_prior
 
 
-def plot_mass_range(m1_range, mc_range, q_range, m2_range=None):
+def plot_mass_range(m1_range, mc_range, q_range, m2_range=None, filename=None):
     """Show allowed range of mass given constraint of mass1, mass2, chirp
     mass and mass ratio, a range should be a tuple like (lower, upper) 
 
@@ -1028,6 +1134,8 @@ def plot_mass_range(m1_range, mc_range, q_range, m2_range=None):
     m2_range: tuple of float, optional
         range of mass2, set to m1_range by default
     """
+    from pycbc.conversions import mass1_from_mchirp_q as m1_from_mcq
+    from pycbc.conversions import mass2_from_mchirp_q as m2_from_mcq
 
     if not hasattr(m2_range, '__iter__'): m2_range = m1_range
     m1 = []
@@ -1057,22 +1165,33 @@ def plot_mass_range(m1_range, mc_range, q_range, m2_range=None):
     cb = plt.colorbar(cs, ticks=np.linspace(min(mt), max(mt), 20))
     cb.set_label(r"$M_{tot}/M_{\odot}$")
     plt.legend()
-    plt.show()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
 
 
 def mclt_from_m12l12(mass1, mass2, lambda1, lambda2):
+    from pycbc.conversions import mchirp_from_mass1_mass2 as mc_from_m12
+
     mc = mc_from_m12(mass1, mass2)
     lt = lambda_tilde(mass1, mass2, lambda1, lambda2)
     return mc, lt
 
 
 def mcq_from_m12(mass1, mass2):
+    from pycbc.conversions import q_from_mass1_mass2 as q_from_m12
+    from pycbc.conversions import mchirp_from_mass1_mass2 as mc_from_m12
+
     mc = mc_from_m12(mass1, mass2)
     q = q_from_m12(mass1, mass2)
     return mc, q
 
 
 def m12_from_mcq(mchirp, q):
+    from pycbc.conversions import mass1_from_mchirp_q as m1_from_mcq
+    from pycbc.conversions import mass2_from_mchirp_q as m2_from_mcq
+
     m1 = m1_from_mcq(mchirp, q)
     m2 = m2_from_mcq(mchirp, q)
     return m1, m2
@@ -1194,7 +1313,7 @@ def load_txt(input_file, params_list=None, delimiter=' '):
 
 
 def load_hdf(fpath, data_path="/samples", params_list=None, \
-             data_type="pycbc", pt_sampler=False):
+             data_type="pycbc", pt_sampler=False, return_dict=False):
     """Read hdf data.
 
     Parameters
@@ -1252,6 +1371,8 @@ def load_hdf(fpath, data_path="/samples", params_list=None, \
     else:
         print("No such fucking file \n" * 10)
         raise IOError
+    if return_dict:
+        retn = {k:retn[i] for i, k in enumerate(params_list)}
     return retn
 
 
@@ -1320,8 +1441,11 @@ def write_txt(filename, data_list, title_list, fill_width=10):
 #============================================================================#
 
 
+useful_centences = ["from pycbc.waveform.compress import rough_time_estimate", \
+                    "from scipy.stats import pearsonr"]
+
+
 from scipy.stats import rv_continuous
-from pycbc.waveform.compress import rough_time_estimate
 
 class kde_data(rv_continuous):
     def __init__(self, data, lower=None, upper=None, **kargs):
@@ -1376,5 +1500,3 @@ def unique_2darray(array):
 
 def time_before_merger(f_low, chirp_m):
     return 93.9*(f_low/30.)**(-8./3)*(chirp_m/0.87)**(-5./3)
-
-
