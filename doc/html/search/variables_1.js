@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kde_83',['kde',['../classmy__cbc__tools_1_1kde__data_ad04e3efdc901b04bbb67b361d208debc.html#ad04e3efdc901b04bbb67b361d208debc',1,'my_cbc_tools::kde_data']]]
+  ['lower_98',['lower',['../classmy__cbc__tools_1_1kde__data_a8b5c4b2941bfa962f41a797a44354905.html#a8b5c4b2941bfa962f41a797a44354905',1,'my_cbc_tools::kde_data']]]
 ];

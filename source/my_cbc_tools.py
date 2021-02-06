@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 #============================================================================#
 
 
+r_trans = 1.4766250385
 p_mks_to_mev = 1.60218e32
 rho_mks_to_mev = 1.782661907e15
 p_geo_to_mks = 8.262346242653866e-45
@@ -474,8 +475,8 @@ def plot_unique(sample, show_repeated=False, filename=None):
 #============================================================================#
 
 
-def cal_kldiv(sample1, sample2, base=2., bw_method='scott', scale_th=1e-8, \
-              bins="rice", use_kde=True, verbose=False, cal_jsd=False):
+def cal_kldiv(sample1, sample2, base=2., bw_method='scott', bins="rice", \
+              use_kde=False, cal_jsd=False):
     """Calculate Kullback-Leibler divergence: KL(sample1|sample2)
 
     Parameters
@@ -488,14 +489,10 @@ def cal_kldiv(sample1, sample2, base=2., bw_method='scott', scale_th=1e-8, \
         log base to calculate KL
     bw_method: bw_method
         see doc of scipy.stats.gaussian_kde
-    scale_th: float, optional
-        bins with hist<scal_th/bin_num will be ignored to avoid bias
     bins: bins 
         see doc of numpy.histogram
     use_kde: bool, optional
         use KDE method to mimic sample behavior or just use histogram method
-    verbose: bool, optional
-        set to true to show important results
     cal_jsd: bool, optional
         set to true to calculate Jensen-Shannon divergence
 
@@ -506,72 +503,173 @@ def cal_kldiv(sample1, sample2, base=2., bw_method='scott', scale_th=1e-8, \
     """
 
     from scipy.stats import gaussian_kde
-    from scipy.stats import entropy
     from scipy.integrate import quad
     
-    hist, bounds = np.histogram(sample1, bins=bins)
-    bin_num = len(hist)
+    hist_ignore, bounds = np.histogram(np.append(sample1, sample2), bins=bins)
     if use_kde:
         lower_bds = bounds[:-1]
         upper_bds = bounds[1:]
-        func1 = gaussian_kde(sample1, bw_method=bw_method) #'silverman'
-        func2 = gaussian_kde(sample2, bw_method=bw_method) #'silverman'
-        norm_fac1 = quad(func1, min(sample1), max(sample1))[0]
-        norm_fac2 = quad(func2, min(sample2), max(sample2))[0]
-        if verbose:
-            print("Norm fac1:{}, norm fac2:{}".format(norm_fac1, norm_fac2))
-        normed_f1 = lambda x:func1(x)/norm_fac1
-        normed_f2 = lambda x:func2(x)/norm_fac2
-        hist1 = np.array([quad(normed_f1, lb, ub)[0] for lb, ub in \
-                                                   zip(lower_bds, upper_bds)])
-        hist2 = np.array([quad(normed_f2, lb, ub)[0] for lb, ub in \
-                                                   zip(lower_bds, upper_bds)])
-        if cal_jsd:
-            normed_f3 = lambda x: (normed_f1(x)+normed_f2(x))/2.0
-            hist3 = np.array([quad(normed_f3, lb, ub)[0] for lb, ub in \
-                                                   zip(lower_bds, upper_bds)])
-        if verbose:
-            print("Hist1 sum:{}, hist2 sum:{}".format(sum(hist1), sum(hist2)))
+        func1 = gaussian_kde(sample1, bw_method=bw_method)
+        func2 = gaussian_kde(sample2, bw_method=bw_method)
+        hist1 = [quad(func1, lb, ub)[0] for lb, ub in zip(lower_bds, upper_bds)]
+        hist2 = [quad(func2, lb, ub)[0] for lb, ub in zip(lower_bds, upper_bds)]
     else:
-        hist1 = hist
+        hist1, _ = np.histogram(sample1, bounds)
         hist2, _ = np.histogram(sample2, bounds)
-        if cal_jsd: hist3 = (hist1+hist2)/2.0
-    #probability below threshold should be ignored to avoid unexpected bias
-    threshold = scale_th/bin_num
-    choose_index = (hist1>threshold)*(hist2>threshold)
+    hist1 = np.array(hist1)/float(sum(hist1))
+    hist2 = np.array(hist2)/float(sum(hist2))
     if cal_jsd:
-        choose_index *= hist3>threshold
-    hist1 = hist1[choose_index]
-    hist2 = hist2[choose_index]
-    if cal_jsd:
-        hist3 = hist3[choose_index]
-        kld1 = entropy(hist1, qk=hist3, base=base)
-        kld2 = entropy(hist2, qk=hist3, base=base)
-        js_div = (kld1+kld2)/2.0
+        from scipy.spatial import distance
+        js_div = (distance.jensenshannon(hist1, hist2, base=base))**2
     else:
-        kl_div = entropy(hist1, qk=hist2, base=base)
+        from scipy.special import rel_entr
+        kl_div = sum(rel_entr(hist1[hist2>0], hist2[hist2>0]))/np.log(base)
     return js_div if cal_jsd else kl_div
 
 
-def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15], \
-    c_pt=68.3, addtext=None, textloc=[0.6, 0.8, 0.05, 0.025], filename=None):
+def plot_corner(data, labels=None, colors=None, show_orders=None, keys=None, precisions=None, \
+    percentiles=[5, 50, 95], levels=None, title_size=3.6, lw=0.45, smooth=1.8, scale_ys=None, \
+    plot_densities=None, range_var=None, plt_rcParams=None, show_vlines=True, figsize=None, \
+    textloc=[0.8, 0.95, 0.00, 0.035], legend_text=True, filename=None, **corner_kwargs):
+    """Compare multi data with package corner.
+
+    Parameters
+    ----------
+    data: 3D array like
+        Samples to compare, must take the form: [ds1, ..., dsN], where dsN: [var1, ..., varN].
+    labels: list of strings of size data.shape[0], optional
+        Labels of different datasets.
+    colors: list of colors of size data.shape[0], optional
+        Colors of different datasets.
+    show_orders: list of int of size data.shape[0], optional
+        The orders of data to plot.
+    keys: list of strings of size data.shape[1], optional
+        Keys of different variables.
+    precisions: list of int of size data.shape[1], optional
+        Precision of titles of variables.
+    percentiles: list of float of the form: [lower, median, upper], optional
+        Percentiles to show in the 1D histograms and the titles.
+    levels: list of float, optional
+        Percentile regions to show.
+    title_size: float, optional
+        Size of the titles, labels, and ticks.
+    lw: float, optional
+        Line width in the 1D hist plots.
+    smooth: float, optional
+        Smooth level that will be directly transfered to the corner.
+    scale_ys: list of float of size data.shape[1], optional
+        To scale y_lim for each variable.
+    plot_densities: list of bool of size data.shape[0], optional
+        Whether to plot the density of each data set.
+    plt_rcParams: dict, optional
+        Key ward arguments that will be updated to the pyplot.rcParams.
+    show_vlines: bool, optional
+        Whether to show the vertical lines in the 1D hist plots.
+    figsize: (float, float), optional
+        The size of the figure.
+    textloc: list of float of the form: [x_begin, y_begin, x_shift, y_shift], optional
+        Location of the legend, useful only if the legend_text is set to be True.
+    legend_text: bool, optional
+        Whether to set legend to annotation form or the original pyplot.legend() form.
+    filename: str
+        Save to path 'filename' if given, show it directly if it is default value.
+    corner_kwargs: kwargs that will be directly transfered to the corner.corner().
+    """
+    import corner
+    from matplotlib import lines as mpllines
+
+    # set rcParams
+    default_rcParams = {'lines.linewidth': lw+0.6, 'axes.linewidth': lw, 'font.size': 5.0, \
+                        'font.sans-serif':['DejaVu Sans'], 'grid.linewidth': lw-0.2}
+    if plt_rcParams is not None:
+        default_rcParams = default_rcParams.update(plt_rcParams)
+    plt.rcParams.update(default_rcParams)
+    # initialize parameters
+    da_shape = [len(data), len(data[0])]
+    labels = ['data set {}'.format(i+1) for i in range(da_shape[0])] if labels is None else labels
+    colors = ['y', 'm', 'c', 'r', 'g', 'b', 'k'][:da_shape[1]] if colors is None else colors
+    show_orders = [i for i in range(da_shape[0])] if show_orders is None else show_orders
+    keys = ['x{}'.format(i+1) for i in range(da_shape[1])] if keys is None else keys
+    precisions = [2]*da_shape[1] if precisions is None else precisions
+    quantiles = [percentiles[i]/100. for i in [0, 2]] if show_vlines else []
+    levels = [0.6827, 0.9545, 0.9973] if levels is None else levels
+    scale_ys = [1 for i in range(da_shape[1])] if scale_ys is None else scale_ys
+    plot_densities = [False for i in range(da_shape[0])] if plot_densities is None else plot_densities
+    minn = [min([min(data[j][i]) for j in range(da_shape[0])]) for i in range(da_shape[1])]
+    maxx = [max([max(data[j][i]) for j in range(da_shape[0])]) for i in range(da_shape[1])]
+    range_var = [(it1, it2) for it1, it2 in zip(minn, maxx)] if range_var is None else range_var
+    figsize = (da_shape[1], da_shape[1]) if figsize is None else figsize
+    kwargs_init = dict(labels=keys, smooth=smooth, bins=25, levels=levels, show_titles=False, \
+        quantiles=quantiles, label_kwargs=dict(fontsize=title_size+1), range=range_var, \
+        max_n_ticks=3, plot_datapoints=False, fill_contours=False)
+    kwargs_init.update(corner_kwargs)
+    # create figure
+    fig = plt.figure(figsize=figsize)
+    for da, color, pld in [(data[i], colors[i], plot_densities[i]) for i in show_orders]:
+        kwargs_init.update({'hist_kwargs':{'density':True, 'color':color, 'lw':lw}, 'plot_density':pld})
+        corner.corner(np.array(da).T, color=color, fig=fig, **kwargs_init)
+    axes = fig.get_axes()
+    ndim = int(np.sqrt(len(axes)))
+    # set title
+    title_axes = [axes[i*ndim+i] for i in range(ndim)]
+    locs = [['left', 'center', 'right'], ['center', 'left', 'right'], ['left', 'right', 'center']]
+    locs = locs[len(data)%3]
+    for j, da in enumerate(data):
+        for i, (dd, precs, ax) in enumerate(zip(da, precisions, title_axes)):
+            temp_ax = ax.twiny()
+            probs = np.percentile(dd, percentiles)
+            if precs<=0:
+                format_string = r"${:.0f}_{{-{:.0f}}}^{{+{:.0f}}}$"
+            else:
+                format_string = r"${:."+str(precs)+r"f}_{{-{:."+str(precs)+r"f}}}^{{+{:."+str(precs)+r"f}}}$"
+            title_str = format_string.format(np.round(probs[1], precs), np.round(probs[1]-probs[0], precs), \
+                                             np.round(probs[2]-probs[1], precs))
+            temp_ax.set_title(title_str, fontsize=title_size-0.5, color=colors[j], pad=1.5+int(j/3)*6, loc=locs[j%3])
+            temp_ax.set_xticks([])
+            y_min, y_max = ax.get_ylim()
+            ax.set_ylim(y_min, y_max*np.power(scale_ys[i], 1./da_shape[0]))
+            if legend_text:
+                plt.annotate(labels[j], xy=(textloc[0]-textloc[2]*j, textloc[1]-textloc[3]*j), \
+                             xycoords='figure fraction', color=colors[j], fontsize=title_size+2)
+    for ax in axes:
+        ax.tick_params(direction='out', labelsize=title_size+1, length=2., width=lw-0.2)
+    # plot legend
+    axes[0].set_ylabel('PDF', size=title_size)
+    if not legend_text:
+        lines = [mpllines.Line2D([0], [0], lw=0.05, color=color) for color in colors]
+        axes[ndim - 1].legend(lines, labels, fontsize=title_size+2)
+    if filename is None:
+        plt.show()
+    else:
+        plt.savefig(filename, dpi=300)
+
+
+def plot_group_Multi(groupdata, x_labels=None, precisions=None, bound=None, m_pt=[15.85, 50, 84.15], \
+    c_pt=68.3, true_values=None, colors=None, labels=None, textloc=[0.75, 0.90, 0.00, 0.025], \
+    title_size=11, legend_size=30, filename=None):
     """Plot groups of multi-dim data.
 
     Parameters
     ----------
     groupdata: list
         groups of samples to compare
-    labels: list of string, optional
+    x_labels: list of string, optional
         name of every dimension of samples
+    precisions: list of int, optional
+        precision of title shown
     bound: list, optional
         [[low], [up]] limits of each parameters
+    colors: list
+        colors of each sample
     m_pt: list, default is [15.85, 50, 84.15] 
         percentiles of every dimension of samples
     c_pt: float, default is 68.3
         contour percentile
-    addtext: list, optional
+    true_values: list, optional
+        injected values
+    labels: list, optional
         tag of each group
-    textloc: list, request only if addtext is not None
+    textloc: list, request only if labels is not None
         control where to put the text, format is [xbegin, ybegin, xshift, yshift]
     filename: str
         save to path 'filename' if given, show it directly it is default value
@@ -582,7 +680,9 @@ def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15]
     """
     import numpy as np
     from pycbc.results.scatter_histograms import create_multidim_plot
-    inner_key = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'x', 'y', 'z']
+    inner_key = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', \
+                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    tot_groups = len(groupdata)
     dims = len(groupdata[0])
     select_key = inner_key[0:dims]
     group_samples = [dict(zip(select_key, data)) for data in groupdata]
@@ -595,54 +695,87 @@ def plot_group_Multi(groupdata, labels=None, bound=None, m_pt=[15.85, 50, 84.15]
     else:
         mins = dict(zip(select_key, bound[0]))
         maxs = dict(zip(select_key, bound[1]))
-    if labels is not None:
-        labels = dict(zip(select_key, labels))
+    if true_values is not None:
+        true_values = dict(zip(select_key, true_values))
+    if x_labels is not None:
+        x_labels = dict(zip(select_key, x_labels))
     
-    fig, axes, colors, locs = None, None, ['r', 'g', 'b'], ['left', 'right', 'center']
-    x_begin, y_begin, x_shift, y_shift = textloc
+    fig, axes = None, None
+    if colors is None:
+        colors = ['g', 'b', 'k', 'cyan', 'purple', 'pink']
+    if precisions is None:
+        precisions = [2 for i in range(tot_groups)]
+    locs = [['left', 'center', 'right'], ['center', 'left', 'right'], ['left', 'right', 'center']]
+    locs = locs[tot_groups%3]
+    if len(textloc)==4:
+        use_patch = False
+        x_begin, y_begin, x_shift, y_shift = textloc
+    else:
+        use_patch = True
+        from matplotlib.patches import Patch
+        patches = [Patch(color=c) for c in colors]
     for j,samples in enumerate(group_samples):
-        fig, axes = create_multidim_plot(select_key, samples, labels=labels, 
-        mins=mins, maxs=maxs, expected_parameters=None, expected_parameters_color='r', 
+        fig, axes = create_multidim_plot(select_key, samples, labels=x_labels, 
+        mins=mins, maxs=maxs, expected_parameters=true_values, expected_parameters_color='r', 
         plot_marginal=True, plot_scatter=False, marginal_percentiles=m_pt, 
         contour_percentiles=[c_pt], marginal_title=False, marginal_linestyle='-', 
         zvals=None, show_colorbar=False, cbar_label=None, vmin=None, vmax=None, 
         scatter_cmap='plasma', plot_density=False, plot_contours=True, density_cmap='BuPu', 
         contour_color=colors[j], hist_color=colors[j], line_color=colors[j], fill_color=None,
         use_kombine=False, fig=fig, axis_dict=axes)
-        for i,key in enumerate(select_key):
+        for i, (key, precision) in enumerate(zip(select_key, precisions)):
             if i==0:
                 axes[(key, key)][0].set_ylabel('PDF')
             probs = np.percentile(samples[key], m_pt)
-            axes[(key, key)][0].set_title(r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(probs[1], \
-                probs[1]-probs[0], probs[2]-probs[1]), fontsize=10, color=colors[j], loc=locs[j])
+            temp_axis = axes[(key, key)][0].twiny()
+            if precision<=0:
+                format_string = r"${:.0f}_{{-{:.0f}}}^{{+{:.0f}}}$"
+            else:
+                format_string = r"${:."+str(precision)+r"f}_{{-{:."+str(precision)+r"f}}}^{{+{:."+str(precision)+r"f}}}$"
+            title_str = format_string.format(np.round(probs[1], precision), np.round(probs[1]-probs[0], precision), np.round(probs[2]-probs[1], precision))
+            temp_axis.set_title(title_str, fontsize=title_size, color=colors[j], pad=5+(j/3)*15, loc=locs[j%3])
+            temp_axis.set_xticks([])
             axes[(key, key)][0].set_xlim(mins[key], maxs[key])
-            axes[(key, key)][0].tick_params(direction='in')
-        if addtext is not None:
-            plt.annotate(addtext[j], xy=(x_begin-x_shift*j, y_begin-y_shift*j), xycoords='figure fraction', \
-                color=colors[j], fontsize=20)
+            axes[(key, key)][0].tick_params(direction='in', labelsize=10)
+        if labels is not None:
+            if use_patch:
+                pass
+            else:
+                plt.annotate(labels[j], xy=(x_begin-x_shift*j, y_begin-y_shift*j), xycoords='figure fraction', \
+                    color=colors[j], fontsize=legend_size)
+    if use_patch:
+        fig.legend(handles=patches[:dims], loc=textloc, labels=labels[:dims], fontsize=20)
     if filename==None:
         plt.show()
     else:
         plt.savefig(filename)
 
 
-def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues", filename=None, **kargs):
+def plot_corr(samples, names=None, cluster=True, annot=True, figsize=(10, 10), \
+              metric_par=(2, 4), cmap="Blues", filename=None, mask_sym=True, **kargs):
     """Plot cross correlation map.
 
     Parameters
     ----------
+
     samples: array like
         samples to calculate correlation heat/cluster map
     names: list of string, optional
         name of every dimension of samples
     cluster: bool, optional
         plot a cluster map or heat map
+    anoot: bool, optional
+        whether to note the correlation number
+    figsize: tuple, optional
+        figure size 
     metric_par: tuple of int, optional
         the metric is 'sin(t)^a*(sum_i{abs(u_i)-abs(v_i)})^b'
     cmap: cmap 
         cmap of matplotlib
     filename: str
         save to path 'filename' if given, show it directly it is default value
+    mask_sym: bool, optional
+        whether to mask the symmetry part
     kargs: dict
         transfered to heat map or cluster map
     
@@ -666,21 +799,70 @@ def plot_corr(samples, names=None, cluster=True, metric_par=(2, 4), cmap="Blues"
     print("Cross correlation coefficients:\n")
     print("{}".format(corr))
     kargs.update({"xticklabels":names, "yticklabels":names})
-    if cluster:
-        sbn.clustermap(corr, cmap=cmap, annot=True, metric=my_metric, **kargs)
-    else:
+    if mask_sym:
         mask = np.zeros_like(corr)
         mask[np.triu_indices_from(mask, 1)] = True
+    else:
+        mask = None
+    if cluster:
+        sbn.clustermap(corr, cmap=cmap, annot=annot, metric=my_metric, mask=mask, figsize=figsize, **kargs)
+    else:
         with sbn.axes_style("white"):
-            sbn.heatmap(corr, cmap=cmap, annot=True, mask=mask, **kargs)
+            fig = plt.figure(figsize=figsize)
+            ax = plt.gca()
+            sbn.heatmap(corr, cmap=cmap, annot=annot, ax=ax, mask=mask, **kargs)
     if filename==None:
         plt.show()
     else:
         plt.savefig(filename)
 
 
+def compare_pdf_plots(funcs, xbound, conf_interval=90., labels=None, xlabel='x', \
+                      ylabel='PDF', colors=None, filename=None, lw=2, show_vlines=True):
+    """Compare multi pdfs.
+
+    Parameters
+    ----------
+    funcs: list of univariate normed functions
+    xrange: (xmin, xmax) tuple of double
+    percentiles: list of float
+        Percentiles to be shown.
+    labels: labels to show
+    filename: str
+        save to path 'filename' if given, show it directly it is default value
+    """
+
+    if not hasattr(labels, '__iter__'):
+        labels = np.arange(1, len(funcs)+1)
+    x = np.linspace(xbound[0], xbound[1], 20000)
+    y_max = 0
+    for i, (lb, func) in enumerate(zip(labels, funcs)):
+        y = func(x)
+        ym = max(y)
+        y_max = max(ym, y_max)
+        if hasattr(colors, '__iter__'):
+            color = colors[i]
+        else:
+            color = (np.random.rand(), np.random.rand(), np.random.rand())
+            print("You have chose color {} for line {}".format(color, i+1))
+        perc = cal_pdf_property(x, y, conf_interval, True, False, 6, False)
+        plt.plot(x, y, c=color, label=str(lb), lw=lw)
+        if show_vlines:
+            plt.vlines(perc, 0, ym, colors=color, lw=0.8, linestyle='--')
+    ybound = (0, y_max*1.1)
+    plt.xlim(xbound)
+    plt.ylim(ybound)
+    plt.ylabel(ylabel)
+    plt.xlabel(xlabel)
+    plt.legend()
+    if filename==None:
+        plt.show()
+    else:
+        plt.savefig(filename)
+
 def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabel='x', \
-                         colors=None, filename=None):
+                         xmin=None, xmax=None, ylabel='PDF', colors=None, filename=None, \
+                         lw=2, show_vlines=True, bw_method="scott"):
     """Compare multi samples.
 
     Parameters
@@ -695,33 +877,49 @@ def compare_sample_plots(samples, percentiles=[5., 50., 95.], labels=None, xlabe
     from scipy.stats import gaussian_kde
 
     samples = np.array(samples)
-    if not hasattr(labels, '__iter__'):
+    if labels is None:
         labels = np.arange(1, len(samples)+1)
+    if colors is None:
+        colors = my_colors[:]
     mmin = min([min(s) for s in samples])
     mmax = max([max(s) for s in samples])
-    x = np.linspace(mmin, mmax, 2000)
+    if (xmin is not None) and (xmax is not None):
+        x = np.linspace(xmin, xmax, 2000)
+    else:
+        x = np.linspace(mmin, mmax, 2000)
     y_max = 0
     for i, (lb, sample) in enumerate(zip(labels, samples)):
-        kde = gaussian_kde(sample, bw_method="scott")
+        kde = gaussian_kde(sample, bw_method=bw_method)
         y = kde(x)
         ym = max(y)
         y_max = max(ym, y_max)
-        if hasattr(colors, '__iter__'):
-            color = colors[i]
-        else:
-            color = (np.random.rand(), np.random.rand(), np.random.rand())
-            print("You have chose color {} for line {}".format(color, i+1))
         perc = [np.percentile(sample, p) for p in percentiles]
-        plt.plot(x, y, c=color, label=str(lb), lw=2)
-        plt.vlines(perc, 0, ym, colors=color, lw=0.8, linestyle='--')
+        plt.plot(x, y, c=colors[i], label=str(lb), lw=lw)
+        if show_vlines:
+            plt.vlines(perc, 0, ym, colors=colors[i], lw=0.8, linestyle='--')
     fac = 1.1
-    xmin = mmin*fac if np.sign(mmin)==-1 else mmin/fac
-    xmax = mmax/fac if np.sign(mmax)==-1 else mmax*fac
+    if xmin is None:
+        xmin = mmin*fac if np.sign(mmin)==-1 else mmin/fac
+    if xmax is None:
+        xmax = mmax/fac if np.sign(mmax)==-1 else mmax*fac
     xbound = (xmin, xmax)
     ybound = (0, y_max*1.1)
+    if np.shape(samples)[0]==3:
+        perc1 = [np.percentile(samples[0], p) for p in percentiles]
+        perc2 = [np.percentile(samples[1], p) for p in percentiles]
+        perc3 = [np.percentile(samples[2], p) for p in percentiles]
+        title1 = r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(perc1[1], perc1[1]-perc1[0], \
+             perc1[2]-perc1[1])
+        title2 = r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(perc2[1], perc2[1]-perc2[0], \
+             perc2[2]-perc2[1])
+        title3 = r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(perc3[1], perc3[1]-perc3[0], \
+             perc3[2]-perc3[1])
+        plt.title(title1, color=colors[0], loc='left')
+        plt.title(title2, color=colors[1], loc='center')
+        plt.title(title3, color=colors[2], loc='right')
     plt.xlim(xbound)
     plt.ylim(ybound)
-    plt.ylabel("PDF")
+    plt.ylabel(ylabel)
     plt.xlabel(xlabel)
     plt.legend()
     if filename==None:
@@ -742,13 +940,15 @@ def compare_two_sample_stats(sample1, sample2):
     rank_z, rank_p = mannwhitneyu(sample1, sample2)
     run_z, run_p = runstest_2samp(sample1, sample2)
     print("Jensen-Shannon divergence: {}".format(js_divergence))
-    print("\n--------------------------------------------\n")
-    print("    Test method          statistic       p-value")
-    print("=====================    =========      ==========")
-    print("Two sided KS test      : {:<+.3E}\t{:<+.3E}".format(D, p_value))
-    print("Mann-Whitney rank test : {:<+.3E}\t{:<+.3E}".format(rank_z,rank_p))
-    print("Wald-Wolfowitz run test: {:<+.3E}\t{:<+.3E}".format(run_z,run_p))
-
+    print("\n----------------------------------------------------------------------------------\n")
+    print("    Test method                                            statistic      p-value")
+    print("======================================================     ==========   ==========")
+    print("Two sided Kolmogorov-Smirnov test                     :    {:<+.3E}\t{:<+.3E}".format(D, p_value))
+    print("(sensitive to both the diff of mean and variance)")
+    print("Wilcoxon-Mann-Whitney rank test                       :    {:<+.3E}\t{:<+.3E}".format(rank_z,rank_p))
+    print("(more sensitive to the diff of mean but not variance)")
+    print("Wald-Wolfowitz run test                               :    {:<+.3E}\t{:<+.3E}".format(run_z,run_p))
+    print("(more sensitive to the diff of variance but not mean)")
 
 def plot_crude_diff(lmh1, lmh2, lb1='1', lb2='2', xlabel='x', filename=None):
     """
@@ -775,7 +975,7 @@ def plot_crude_diff(lmh1, lmh2, lb1='1', lb2='2', xlabel='x', filename=None):
 def compare_two_sample_plots(sample1, sample2, percentiles=[5., 50., 95.], \
                              xlabel='x', xscale='linear', xmin=None, xmax=None, \
                              bins='auto', histtype='bar', c1=None, c2=None, name1=None, \
-                             name2=None, filename=None):
+                             name2=None, filename=None, show_hist=False, show_vlines=True):
     """Compare two samples.
 
     Parameters
@@ -815,32 +1015,34 @@ def compare_two_sample_plots(sample1, sample2, percentiles=[5., 50., 95.], \
         c1 = (np.random.rand(), np.random.rand(), np.random.rand())
     if c2==None:
         c2 = (np.random.rand(), np.random.rand(), np.random.rand())
-    label1 = "kde of sample1" if name1==None else "kde of "+name1
-    label2 = "kde of sample2" if name2==None else "kde of "+name2
+    label1 = "sample1" if name1==None else name1
+    label2 = "sample2" if name2==None else name2
     plt.plot(x, y1, c=c1, label=label1, lw=2)
     plt.plot(x, y2, c=c2, label=label2, lw=2)
-    plt.vlines(perc1, 0, y_max, colors=c1, lw=1, linestyle='--')
-    plt.vlines(perc2, 0, y_max, colors=c2, lw=1, linestyle='--')
-    label1 = "hist of sample1" if name1==None else "hist of "+name1
-    label2 = "hist of sample2" if name2==None else "hist of "+name2
-    if xscale=='log':
-        _, bins1 = np.histogram(np.log10(sample1[sample1!=0.]), bins=bins)
-        _, bins2 = np.histogram(np.log10(sample2[sample2!=0.]), bins=bins)
-        plt.hist(sample1, bins=10**bins1, density=True, label=label1, 
-            alpha=0.7, color=c1, histtype=histtype)
-        plt.hist(sample2, bins=10**bins2, density=True, label=label2,
-            alpha=0.7, color=c2, histtype=histtype)
-        xlabel = 'log10('+xlabel+')'
-    else:
-        plt.hist(sample1, bins=bins, density=True, label=label1,
-            alpha=0.7, color=c1, histtype=histtype)
-        plt.hist(sample2, bins=bins, density=True, label=label2,
-            alpha=0.7, color=c2, histtype=histtype)
+    if show_vlines:
+        plt.vlines(perc1, 0, y_max, colors=c1, lw=1, linestyle='--')
+        plt.vlines(perc2, 0, y_max, colors=c2, lw=1, linestyle='--')
+    if show_hist:
+        label1 = "hist of sample1" if name1==None else "hist of "+name1
+        label2 = "hist of sample2" if name2==None else "hist of "+name2
+        if xscale=='log':
+            _, bins1 = np.histogram(np.log10(sample1[sample1!=0.]), bins=bins)
+            _, bins2 = np.histogram(np.log10(sample2[sample2!=0.]), bins=bins)
+            plt.hist(sample1, bins=10**bins1, density=True, label=label1, 
+                alpha=0.7, color=c1, histtype=histtype)
+            plt.hist(sample2, bins=10**bins2, density=True, label=label2,
+                alpha=0.7, color=c2, histtype=histtype)
+            xlabel = 'log10('+xlabel+')'
+        else:
+            plt.hist(sample1, bins=bins, density=True, label=label1,
+                alpha=0.5, color=c1, histtype=histtype)
+            plt.hist(sample2, bins=bins, density=True, label=label2,
+                alpha=0.5, color=c2, histtype=histtype)
     title1 = r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(perc1[1], perc1[1]-perc1[0], \
              perc1[2]-perc1[1])
     title2 = r"${:.2f}_{{-{:.2f}}}^{{+{:.2f}}}$".format(perc2[1], perc2[1]-perc2[0], \
              perc2[2]-perc2[1])
-    plt.title(title1, color=c1, loc='center')
+    plt.title(title1, color=c1, loc='left')
     plt.title(title2, color=c2, loc='right')
     plt.ylabel("PDF")
     plt.xlabel(xlabel)
@@ -918,6 +1120,38 @@ def compare_two_sample_pairs(pair1, pair2, xlabel=None, ylabel=None, colors=['c'
         plt.show()
     else:
         plt.savefig(filename)
+
+
+def compare_multi_pairs(datas, x=None, y=None, labels=None, colors=None, linestyles=None, levels=None):
+    """  
+    datas: seems like datas=[{'x':[...],'y':[...]}, {'x':[...],'y':[...]}, ...]
+    x, y: label of ax x, y
+    labels: labels for legend, list like
+    colors: a list of corlor, seems like ['r', 'b']
+    linestyles: a list of linestyle, seems like ['-', '--']
+    levels: e.g.: [x,] means contour line cover region 1-x, 0<x<1
+    """
+    ## sns.set(rc={'axes.labelsize':16,
+    ##         'xtick.labelsize':16,
+    ##         'ytick.labelsize':16})
+    import seaborn as sns
+    fg = sns.jointplot(data=datas[0], x=x, y=y, kind='kde', color=colors[0], 
+        linestyles=linestyles[0], marginal_kws={'ls':linestyles[0]}, levels=levels, space=0.01, label=labels[0])
+    for i in range(1,len(datas)):
+        fg.x, fg.y = datas[i][x], datas[i][y]
+        fg.plot_joint(sns.kdeplot, color=colors[i], 
+                levels=levels, linestyles=linestyles[i], label=labels[i])
+        fg.plot_marginals(sns.kdeplot, color=colors[i], ls=linestyles[i])
+
+    patches = [plt.Line2D([], [], color=c, linestyle=ls) for c,ls in zip(colors,linestyles)]
+    fl = fg.ax_joint.legend(handles=patches, labels=labels, fontsize=16, frameon=False, handlelength=2.)
+    [l.set_linewidth(1.) for l in fl.get_lines()]
+    fg.ax_joint.tick_params(labelsize=16)
+    fg.set_axis_labels(x, y, fontsize=16)
+    fg.ax_joint.grid(False)
+    fg.ax_marg_x.grid(False)
+    fg.ax_marg_y.grid(False)
+    return fg
 
 
 def dynamic_single(sample, fixed_sample=None, frames=20, wait_time=0.5, \
@@ -1222,7 +1456,10 @@ def mcq_from_m12(mass1, mass2):
 def m12_from_mcq(mchirp, q):
     from pycbc.conversions import mass1_from_mchirp_q as m1_from_mcq
     from pycbc.conversions import mass2_from_mchirp_q as m2_from_mcq
-
+    
+    q = np.array(q)
+    if np.any(q<1.):
+        q = 1./q
     m1 = m1_from_mcq(mchirp, q)
     m2 = m2_from_mcq(mchirp, q)
     return m1, m2
@@ -1247,10 +1484,15 @@ def q12_from_qtm(qt, qm, root_choose='+'):
 
 
 
-def fp(fname, io_state='r'):
-    import h5py
-    
-    return h5py.File(fname, io_state)
+def fp(fname, io_state='r', type='hdf'):
+    if type=='hdf':
+        import h5py
+        return h5py.File(fname, io_state)
+    elif type=='json':
+        import json
+        return json.load(open(fname, io_state))
+    else:
+        print("Data type not recognized!")
 
 
 def get_txt_pars(input_file, delimiter=None):
@@ -1296,31 +1538,33 @@ def get_hdf_pars(fpath, param_path="/data/posterior", data_type="dataframe"):
     if os.path.isfile(fpath):
         fp = h5py.File(fpath, 'r')
         if data_type=="dataset":
-            params_list = fp[param_path].keys()
+            param_list = fp[param_path].keys()
         elif data_type=="dict":
-            params_list = fp[param_path].dtype.names
+            param_list = fp[param_path].dtype.names
         elif data_type=="dataframe":
-            params_list = fp[param_path]["block1_items"].value
+            param_list = fp[param_path]["block1_items"].value
         else:
             print("Unkown data_type!")
         fp.close()
     else:
         print("No such fucking file \n" * 10)
         raise IOError
-    return params_list
+    return param_list
 
 
-def load_txt(input_file, params_list=None, delimiter=' '):
+def load_txt(input_file, param_list=None, delimiter=' ', return_dict=False, verbose=True):
     """Load data from a txt file.
     
     Parameters
     ----------
     input_file: string
         Name of the input txt file.
-    params_list: string, optional
+    param_list: string, optional
         List of the parameters needed to load from the txt file.
     delimiter: string, optional
         Characters to split title.
+    return_dict: bool, optional
+        Whether to return a dictionary or not
 
     Returns
     -------
@@ -1328,22 +1572,23 @@ def load_txt(input_file, params_list=None, delimiter=' '):
     """
 
     with open(input_file, "r") as fp:
-        pars = np.array(fp.readline().strip().split(delimiter))
-        fparams = [p.strip() for p in pars if p.strip()]
-    if not hasattr(params_list, '__iter__'):
-        posit = {param:i for i, param in enumerate(fparams)}
-        params_list = fparams
-        print(fparams)
+        headline = np.array(fp.readline().strip('#').split(delimiter))
+        fparams = [p.strip() for p in headline if p.strip()]
+    if not hasattr(param_list, '__iter__'):
+        location = {param:i for i, param in enumerate(fparams)}
+        param_list = fparams
     else:
-        posit = {param:np.where(fparams==param)[0][0] for param in params_list}
+        location = {param:np.where(np.array(fparams)==param)[0][0] for param in param_list}
+    if (verbose):
+        print("load parameters: ", param_list)
     data = np.loadtxt(input_file, skiprows=1).T
-    wanted = []
-    for param in params_list:
-        wanted.append(data[posit[param]])
-    return np.array(wanted)
+    if return_dict:
+        return {k:data[location[k]] for k in param_list}
+    else:
+        return np.array([data[location[k]] for k in param_list])
 
 
-def load_hdf(fpath, data_path="/samples", params_list=None, \
+def load_hdf(fpath, data_path="/samples", param_list=None, \
              data_type="pycbc", pt_sampler=False, return_dict=False):
     """Read hdf data.
 
@@ -1353,7 +1598,7 @@ def load_hdf(fpath, data_path="/samples", params_list=None, \
         Path to file.
     data_path: string
         Group name of wanted dataset, should not include trailing '/'.
-    params_list: list of string, optional
+    param_list: list of string, optional
         Parameters wanted.
     data_type: string, optional 
         can be either ["dataset", "dict", "dataframe"], or ["pycbc", "ligo", "bilby"].
@@ -1376,25 +1621,25 @@ def load_hdf(fpath, data_path="/samples", params_list=None, \
     if os.path.isfile(fpath):
         fp = h5py.File(fpath, 'r')
         if (data_type=="dataset" or data_type=="pycbc"):
-            if not hasattr(params_list, '__iter__'):
-                params_list = fp[data_path].keys()
-                print(params_list)
-            for param in params_list:
+            if not hasattr(param_list, '__iter__'):
+                param_list = fp[data_path].keys()
+                print(param_list)
+            for param in param_list:
                 if pt_sampler:
                     toappend = np.array(fp[data_path+'/'+param][0])
                 else:
                     toappend = np.array(fp[data_path+'/'+param])
                 retn.append(toappend)
         elif (data_type=="dict" or data_type=="ligo"):
-            if not hasattr(params_list, '__iter__'):
-                params_list = fp[data_path].dtype.names
-                print(params_list)
-            for param in params_list:
+            if not hasattr(param_list, '__iter__'):
+                param_list = fp[data_path].dtype.names
+                print(param_list)
+            for param in param_list:
                 retn.append(np.array(fp[data_path][param]))
         elif (data_type=="dataframe" or data_type=="bilby"):
             names = np.array(fp[data_path]["block1_items"])
             all_data = np.array(fp[data_path]["block1_values"]).T
-            retn = np.vstack((all_data[names==name] for name in params_list))
+            retn = np.vstack((all_data[names==name] for name in param_list))
         else:
             print("Unkown data_type!")
         fp.close()
@@ -1403,7 +1648,7 @@ def load_hdf(fpath, data_path="/samples", params_list=None, \
         print("No such fucking file \n" * 10)
         raise IOError
     if return_dict:
-        retn = {k:retn[i] for i, k in enumerate(params_list)}
+        retn = {k:retn[i] for i, k in enumerate(param_list)}
     return retn
 
 
@@ -1494,6 +1739,39 @@ class kde_data(rv_continuous):
         
     def _pdf(self, x):
         return self.kde(x)/self.scale
+
+
+def asymmetry_dist(d_lower, mean, d_upper, conf_interval=68.26):
+    """
+    68% lower, mean, upper of a distribution
+    """
+    from scipy.stats import norm
+    from scipy.optimize import ridder
+    from scipy.integrate import quad
+
+    def asym_norm(x, c, d, mean=0.):
+        scale = 2./(d*(c+1./c))
+        x = x-mean
+        if len(np.shape(x))==0:
+            ret = scale*norm.pdf(c*x/d) if x<=0 else scale*norm.pdf(x/(d*c))
+        else:
+            ret = np.ones_like(x)
+            for i, xx in enumerate(x):
+                if xx<=0:
+                    ret[i] = scale*norm.pdf(c*xx/d)
+                else:
+                    ret[i] = scale*norm.pdf(xx/(d*c))
+        return ret
+
+    def int_asymnorm(c, d, lb, ub):
+        return quad(lambda x: asym_norm(x, c, d, mean=0.), lb, ub)[0]
+
+    par_c = np.sqrt(d_upper/d_lower) 
+    par_d = ridder(lambda d: int_asymnorm(par_c, d, -d_lower, d_upper)-conf_interval/100., \
+        min(d_lower, d_upper)/10., max(d_lower, d_upper)*10.)
+    ret_func = lambda x: asym_norm(x, par_c, par_d, mean)
+    return ret_func
+
 
 def downsample(array, size):
     """Down sample an 1darray or 2darray to a smaller size.

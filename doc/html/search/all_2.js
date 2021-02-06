@@ -1,6 +1,13 @@
 var searchData=
 [
-  ['downsample_10',['downsample',['../namespacemy__cbc__tools_a5ac92b497877682799e43e722e0b868a.html#a5ac92b497877682799e43e722e0b868a',1,'my_cbc_tools']]],
-  ['dynamic_5fsingle_11',['dynamic_single',['../namespacemy__cbc__tools_ae44daa795536ec6ca4e04929359f4b49.html#ae44daa795536ec6ca4e04929359f4b49',1,'my_cbc_tools']]],
-  ['dynamic_5fwalkers_12',['dynamic_walkers',['../namespacemy__cbc__tools_abb0957085b9440ca8249188458608f49.html#abb0957085b9440ca8249188458608f49',1,'my_cbc_tools']]]
+  ['cal_5facl_2',['cal_acl',['../namespacemy__cbc__tools_ac45ff06a5aebc2a642ed7772c036a98f.html#ac45ff06a5aebc2a642ed7772c036a98f',1,'my_cbc_tools']]],
+  ['cal_5fkldiv_3',['cal_kldiv',['../namespacemy__cbc__tools_a584178ee62f7f12ee892fa44c5231591.html#a584178ee62f7f12ee892fa44c5231591',1,'my_cbc_tools']]],
+  ['cal_5fpdf_5fproperty_4',['cal_pdf_property',['../namespacemy__cbc__tools_ac823cff8e7109dce50340ab7f67c573e.html#ac823cff8e7109dce50340ab7f67c573e',1,'my_cbc_tools']]],
+  ['cal_5fsample_5fproperty_5',['cal_sample_property',['../namespacemy__cbc__tools_a415f73172330dc9296225431d80d98d7.html#a415f73172330dc9296225431d80d98d7',1,'my_cbc_tools']]],
+  ['compare_5fpdf_5fplots_6',['compare_pdf_plots',['../namespacemy__cbc__tools_a10dea7c8dceb84abd834af0c2d91c3a8.html#a10dea7c8dceb84abd834af0c2d91c3a8',1,'my_cbc_tools']]],
+  ['compare_5fsample_5fplots_7',['compare_sample_plots',['../namespacemy__cbc__tools_a1ecd4cb11bc60effe8b4ade9740b8fde.html#a1ecd4cb11bc60effe8b4ade9740b8fde',1,'my_cbc_tools']]],
+  ['compare_5ftwo_5fsample_5fpairs_8',['compare_two_sample_pairs',['../namespacemy__cbc__tools_a998f4c01085ca90c8d83095e9fded42b.html#a998f4c01085ca90c8d83095e9fded42b',1,'my_cbc_tools']]],
+  ['compare_5ftwo_5fsample_5fplots_9',['compare_two_sample_plots',['../namespacemy__cbc__tools_a3f49dfe8ff57798576a7c381b5793623.html#a3f49dfe8ff57798576a7c381b5793623',1,'my_cbc_tools']]],
+  ['compare_5ftwo_5fsample_5fstats_10',['compare_two_sample_stats',['../namespacemy__cbc__tools_ad879ddfdbda44e1d9c315ed340557b6d.html#ad879ddfdbda44e1d9c315ed340557b6d',1,'my_cbc_tools']]],
+  ['compare_5ftwo_5fsamples_11',['compare_two_samples',['../namespacemy__cbc__tools_a3d36b18c910b76d2eef4d41cd16a9b7e.html#a3d36b18c910b76d2eef4d41cd16a9b7e',1,'my_cbc_tools']]]
 ];

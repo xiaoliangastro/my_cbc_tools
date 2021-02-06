@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['plot_5fcorr_73',['plot_corr',['../namespacemy__cbc__tools_a68efffc2b27b1f979db7bad1a6e37d8b.html#a68efffc2b27b1f979db7bad1a6e37d8b',1,'my_cbc_tools']]],
-  ['plot_5fdensity_74',['plot_density',['../namespacemy__cbc__tools_acb9ba5c8b95e69b4565ebd4369853b1d.html#acb9ba5c8b95e69b4565ebd4369853b1d',1,'my_cbc_tools']]],
-  ['plot_5fmass_5frange_75',['plot_mass_range',['../namespacemy__cbc__tools_a612f089bf80f1ce094808551065f1be2.html#a612f089bf80f1ce094808551065f1be2',1,'my_cbc_tools']]],
-  ['plot_5fsingle_76',['plot_single',['../namespacemy__cbc__tools_aaad1da9e2e4959ab8e6e3c6f4f0663ea.html#aaad1da9e2e4959ab8e6e3c6f4f0663ea',1,'my_cbc_tools']]],
-  ['plot_5funique_77',['plot_unique',['../namespacemy__cbc__tools_acd15552d8528bf75728d970eb037364b.html#acd15552d8528bf75728d970eb037364b',1,'my_cbc_tools']]]
+  ['m12_5ffrom_5fmcq_83',['m12_from_mcq',['../namespacemy__cbc__tools_a7440bac99cb54cc6d4ac8bb31f9c8d99.html#a7440bac99cb54cc6d4ac8bb31f9c8d99',1,'my_cbc_tools']]],
+  ['mclt_5ffrom_5fm12l12_84',['mclt_from_m12l12',['../namespacemy__cbc__tools_ad15f4cf80fee5024e3d408466e4273e1.html#ad15f4cf80fee5024e3d408466e4273e1',1,'my_cbc_tools']]],
+  ['mcq_5ffrom_5fm12_85',['mcq_from_m12',['../namespacemy__cbc__tools_acb04613bbb77827a6d481a18a63b7345.html#acb04613bbb77827a6d481a18a63b7345',1,'my_cbc_tools']]]
 ];

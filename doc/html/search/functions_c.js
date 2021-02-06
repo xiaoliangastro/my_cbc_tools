@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['write_5ftxt_81',['write_txt',['../namespacemy__cbc__tools_adff9bbe2bd80f1f0b83af02351ffe124.html#adff9bbe2bd80f1f0b83af02351ffe124',1,'my_cbc_tools']]]
+  ['unique_5f2darray_95',['unique_2darray',['../namespacemy__cbc__tools_a12719f7cc25ac7f6a0495ce31ecd5375.html#a12719f7cc25ac7f6a0495ce31ecd5375',1,'my_cbc_tools']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lower_84',['lower',['../classmy__cbc__tools_1_1kde__data_a8b5c4b2941bfa962f41a797a44354905.html#a8b5c4b2941bfa962f41a797a44354905',1,'my_cbc_tools::kde_data']]]
+  ['my_5fcolors_99',['my_colors',['../namespacemy__cbc__tools_a4179baa7ba3fe810f08e81329293b019.html#a4179baa7ba3fe810f08e81329293b019',1,'my_cbc_tools']]]
 ];

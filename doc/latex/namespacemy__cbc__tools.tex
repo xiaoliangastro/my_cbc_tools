@@ -10,31 +10,37 @@ class \mbox{\hyperlink{classmy__cbc__tools_1_1kde__data}{kde\+\_\+data}}
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_a71fa167b2d43f27745b75a26dbcefc7d_a71fa167b2d43f27745b75a26dbcefc7d}{hpd\+\_\+interval}} (post\+\_\+sample, conf\+\_\+interval=90, prior\+\_\+sample=None, param\+\_\+min=None, param\+\_\+max=None, prior\+\_\+method=\char`\"{}div\+\_\+kde\char`\"{}, bw\+\_\+method=\textquotesingle{}scott\textquotesingle{}, bins=\char`\"{}rice\char`\"{}, root\+\_\+frac=(0.\+5, 0.\+5), pdf\+\_\+guess\+\_\+fac=1., pdf\+\_\+guess=None, xtol=1e-\/7, ftol=1e-\/10, return\+\_\+sample=False, return\+\_\+size=2000, show\+\_\+kde=False, debug=False)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a5d1152f630c7764d439d1741cfdf0da6_a5d1152f630c7764d439d1741cfdf0da6}{cal\+\_\+sample\+\_\+property}} (sample, conf\+\_\+interval=90., method=\char`\"{}median\char`\"{}, diff=False)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a415f73172330dc9296225431d80d98d7_a415f73172330dc9296225431d80d98d7}{cal\+\_\+sample\+\_\+property}} (sample, conf\+\_\+interval=90., method=\char`\"{}median\char`\"{}, diff=True, round\+\_\+level=2)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_aac5bae9d76ee1c5e6d07f7f762e87727_aac5bae9d76ee1c5e6d07f7f762e87727}{cal\+\_\+pdf\+\_\+hpd}} (x, pdf, conf\+\_\+interval=90., debug=False)
+def \mbox{\hyperlink{namespacemy__cbc__tools_ac823cff8e7109dce50340ab7f67c573e_ac823cff8e7109dce50340ab7f67c573e}{cal\+\_\+pdf\+\_\+property}} (x, pdf, conf\+\_\+interval=90., hpd=False, diff=True, round\+\_\+level=2, debug=False)
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_ac45ff06a5aebc2a642ed7772c036a98f_ac45ff06a5aebc2a642ed7772c036a98f}{cal\+\_\+acl}} (sample, nlags=128, window=5, show\+\_\+plot=False, verbose=False)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_aaad1da9e2e4959ab8e6e3c6f4f0663ea_aaad1da9e2e4959ab8e6e3c6f4f0663ea}{plot\+\_\+single}} (sample, true\+\_\+value=None, percentiles=\mbox{[}5., 50., 95.\mbox{]}, bins=\textquotesingle{}auto\textquotesingle{}, xlabel=\textquotesingle{}x\textquotesingle{}, xscale=\textquotesingle{}linear\textquotesingle{}, xmin=None, xmax=None)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a7d5289904e0849dc09b94a24c7401266_a7d5289904e0849dc09b94a24c7401266}{plot\+\_\+single}} (sample, true\+\_\+value=None, percentiles=\mbox{[}5., 50., 95.\mbox{]}, bins=\textquotesingle{}auto\textquotesingle{}, xlabel=\textquotesingle{}x\textquotesingle{}, xscale=\textquotesingle{}linear\textquotesingle{}, xmin=None, xmax=None, filename=None)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_acb9ba5c8b95e69b4565ebd4369853b1d_acb9ba5c8b95e69b4565ebd4369853b1d}{plot\+\_\+density}} (sample1, sample2, true\+\_\+values=None, xlabel=None, ylabel=None, m\+\_\+pt=\mbox{[}5, 50, 95\mbox{]}, c\+\_\+pt=\mbox{[}68.\+3, 95.\+5\mbox{]}, lower\+\_\+1=None, upper\+\_\+1=None, lower\+\_\+2=None, upper\+\_\+2=None, $\ast$$\ast$kargs)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a47e390537d718439ec4d78262bac5ded_a47e390537d718439ec4d78262bac5ded}{plot\+\_\+density}} (sample1, sample2, true\+\_\+values=None, xlabel=None, ylabel=None, m\+\_\+pt=\mbox{[}5, 50, 95\mbox{]}, c\+\_\+pt=\mbox{[}68.\+3, 95.\+5\mbox{]}, filename=None, lower\+\_\+1=None, upper\+\_\+1=None, lower\+\_\+2=None, upper\+\_\+2=None, $\ast$$\ast$kargs)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_acd15552d8528bf75728d970eb037364b_acd15552d8528bf75728d970eb037364b}{plot\+\_\+unique}} (sample, show\+\_\+repeated=False)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a347273a20681d7f3f66d0e97eb736b88_a347273a20681d7f3f66d0e97eb736b88}{plot\+\_\+unique}} (sample, show\+\_\+repeated=False, filename=None)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_aca8b3988b6e107ecd26144f854e42451_aca8b3988b6e107ecd26144f854e42451}{cal\+\_\+kldiv}} (sample1, sample2, base=2., bw\+\_\+method=\textquotesingle{}scott\textquotesingle{}, scale\+\_\+th=1e-\/8, bins=\char`\"{}rice\char`\"{}, use\+\_\+kde=True, verbose=False, cal\+\_\+jsd=False)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a584178ee62f7f12ee892fa44c5231591_a584178ee62f7f12ee892fa44c5231591}{cal\+\_\+kldiv}} (sample1, sample2, base=2., bw\+\_\+method=\textquotesingle{}scott\textquotesingle{}, bins=\char`\"{}rice\char`\"{}, use\+\_\+kde=False, cal\+\_\+jsd=False)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a68efffc2b27b1f979db7bad1a6e37d8b_a68efffc2b27b1f979db7bad1a6e37d8b}{plot\+\_\+corr}} (samples, names=None, cluster=True, metric\+\_\+par=(2, 4), cmap=\char`\"{}Blues\char`\"{}, $\ast$$\ast$kargs)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a45251fce10b6772118d76c139a6592be_a45251fce10b6772118d76c139a6592be}{plot\+\_\+group\+\_\+\+Multi}} (groupdata, x\+\_\+labels=None, precisions=None, bound=None, m\+\_\+pt=\mbox{[}15.\+85, 50, 84.\+15\mbox{]}, c\+\_\+pt=68.\+3, true\+\_\+values=None, colors=None, labels=None, textloc=\mbox{[}0.\+75, 0.\+90, 0.\+00, 0.\+025\mbox{]}, title\+\_\+size=11, legend\+\_\+size=30, filename=None)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a471674aaae8f8eb6e302aa51cb3fead8_a471674aaae8f8eb6e302aa51cb3fead8}{compare\+\_\+sample\+\_\+plots}} (samples, percentiles=\mbox{[}5., 50., 95.\mbox{]}, labels=None, xlabel=\textquotesingle{}x\textquotesingle{})
+def \mbox{\hyperlink{namespacemy__cbc__tools_ac808c1945ee9dbdf5348f0e872c8f877_ac808c1945ee9dbdf5348f0e872c8f877}{plot\+\_\+corr}} (samples, names=None, cluster=True, annot=True, figsize=(10, 10), metric\+\_\+par=(2, 4), cmap=\char`\"{}Blues\char`\"{}, filename=None, mask\+\_\+sym=True, $\ast$$\ast$kargs)
+\item 
+def \mbox{\hyperlink{namespacemy__cbc__tools_a10dea7c8dceb84abd834af0c2d91c3a8_a10dea7c8dceb84abd834af0c2d91c3a8}{compare\+\_\+pdf\+\_\+plots}} (funcs, xbound, conf\+\_\+interval=90., labels=None, xlabel=\textquotesingle{}x\textquotesingle{}, ylabel=\textquotesingle{}P\+DF\textquotesingle{}, colors=None, filename=None, lw=2, show\+\_\+vlines=True)
+\item 
+def \mbox{\hyperlink{namespacemy__cbc__tools_a1ecd4cb11bc60effe8b4ade9740b8fde_a1ecd4cb11bc60effe8b4ade9740b8fde}{compare\+\_\+sample\+\_\+plots}} (samples, percentiles=\mbox{[}5., 50., 95.\mbox{]}, labels=None, xlabel=\textquotesingle{}x\textquotesingle{}, xmin=None, xmax=None, ylabel=\textquotesingle{}P\+DF\textquotesingle{}, colors=None, filename=None, lw=2, show\+\_\+vlines=True, bw\+\_\+method=\char`\"{}scott\char`\"{})
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_ad879ddfdbda44e1d9c315ed340557b6d_ad879ddfdbda44e1d9c315ed340557b6d}{compare\+\_\+two\+\_\+sample\+\_\+stats}} (sample1, sample2)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a215f752ba4628aa7d6bef8e795f83595_a215f752ba4628aa7d6bef8e795f83595}{compare\+\_\+two\+\_\+sample\+\_\+plots}} (sample1, sample2, percentiles=\mbox{[}5., 50., 95.\mbox{]}, xlabel=\textquotesingle{}x\textquotesingle{}, xscale=\textquotesingle{}linear\textquotesingle{}, xmin=None, xmax=None, bins=\textquotesingle{}auto\textquotesingle{}, histtype=\textquotesingle{}bar\textquotesingle{}, c1=None, c2=None, name1=None, name2=None)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a022ada7a6efab2e0a962d2dc9d8dc8f3_a022ada7a6efab2e0a962d2dc9d8dc8f3}{plot\+\_\+crude\+\_\+diff}} (lmh1, lmh2, lb1=\textquotesingle{}1\textquotesingle{}, lb2=\textquotesingle{}2\textquotesingle{}, xlabel=\textquotesingle{}x\textquotesingle{}, filename=None)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a2d1689e4686ec18ce8c7b8fc2eee23bf_a2d1689e4686ec18ce8c7b8fc2eee23bf}{compare\+\_\+two\+\_\+samples}} (sample1, sample2)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a3f49dfe8ff57798576a7c381b5793623_a3f49dfe8ff57798576a7c381b5793623}{compare\+\_\+two\+\_\+sample\+\_\+plots}} (sample1, sample2, percentiles=\mbox{[}5., 50., 95.\mbox{]}, xlabel=\textquotesingle{}x\textquotesingle{}, xscale=\textquotesingle{}linear\textquotesingle{}, xmin=None, xmax=None, bins=\textquotesingle{}auto\textquotesingle{}, histtype=\textquotesingle{}bar\textquotesingle{}, c1=None, c2=None, name1=None, name2=None, filename=None, show\+\_\+hist=False)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a8074232397d0e1df270cc14c42cb210d_a8074232397d0e1df270cc14c42cb210d}{compare\+\_\+two\+\_\+sample\+\_\+pairs}} (pair1, pair2, xlabel=None, ylabel=None, colors=\mbox{[}\textquotesingle{}c\textquotesingle{}, \textquotesingle{}m\textquotesingle{}\mbox{]}, lower\+\_\+1=None, upper\+\_\+1=None, lower\+\_\+2=None, upper\+\_\+2=None, m\+\_\+pt=\mbox{[}5, 50, 95\mbox{]}, c\+\_\+pt=\mbox{[}68.\+3, 95.\+5\mbox{]}, plot\+\_\+config=None)
+def \mbox{\hyperlink{namespacemy__cbc__tools_a3d36b18c910b76d2eef4d41cd16a9b7e_a3d36b18c910b76d2eef4d41cd16a9b7e}{compare\+\_\+two\+\_\+samples}} (sample1, sample2, filename=None)
+\item 
+def \mbox{\hyperlink{namespacemy__cbc__tools_a998f4c01085ca90c8d83095e9fded42b_a998f4c01085ca90c8d83095e9fded42b}{compare\+\_\+two\+\_\+sample\+\_\+pairs}} (pair1, pair2, xlabel=None, ylabel=None, colors=\mbox{[}\textquotesingle{}c\textquotesingle{}, \textquotesingle{}m\textquotesingle{}\mbox{]}, lower\+\_\+1=None, upper\+\_\+1=None, lower\+\_\+2=None, upper\+\_\+2=None, m\+\_\+pt=\mbox{[}5, 50, 95\mbox{]}, c\+\_\+pt=\mbox{[}68.\+3, 95.\+5\mbox{]}, plot\+\_\+config=None, filename=None)
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_ae44daa795536ec6ca4e04929359f4b49_ae44daa795536ec6ca4e04929359f4b49}{dynamic\+\_\+single}} (sample, fixed\+\_\+sample=None, frames=20, wait\+\_\+time=0.\+5, xbound=None, scale\+\_\+fac=1.\+2, bins=\textquotesingle{}auto\textquotesingle{}, percentiles=\mbox{[}5., 50., 95.\mbox{]})
 \item 
@@ -44,7 +50,7 @@ def \mbox{\hyperlink{namespacemy__cbc__tools_ac0a8983dd797f7e9715b71154f1e1def_a
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_aa77fafaa878493d63945eb50688ef2b3_aa77fafaa878493d63945eb50688ef2b3}{get\+\_\+lt\+\_\+prior\+\_\+from\+\_\+mcql12}} (size, mc\+\_\+l, mc\+\_\+u, q\+\_\+l, q\+\_\+u, l1\+\_\+l, l1\+\_\+u, m1\+\_\+l=0, m1\+\_\+u=np.\+inf, m2\+\_\+l=None, m2\+\_\+u=None, l2\+\_\+l=None, l2\+\_\+u=None)
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a612f089bf80f1ce094808551065f1be2_a612f089bf80f1ce094808551065f1be2}{plot\+\_\+mass\+\_\+range}} (m1\+\_\+range, mc\+\_\+range, q\+\_\+range, m2\+\_\+range=None)
+def \mbox{\hyperlink{namespacemy__cbc__tools_aeee550ec5e0e6f2b5ae8595e9b66eb9d_aeee550ec5e0e6f2b5ae8595e9b66eb9d}{plot\+\_\+mass\+\_\+range}} (m1\+\_\+range, mc\+\_\+range, q\+\_\+range, m2\+\_\+range=None, filename=None)
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_ad15f4cf80fee5024e3d408466e4273e1_ad15f4cf80fee5024e3d408466e4273e1}{mclt\+\_\+from\+\_\+m12l12}} (mass1, mass2, lambda1, lambda2)
 \item 
@@ -56,7 +62,7 @@ def \mbox{\hyperlink{namespacemy__cbc__tools_a85f776a69ab43839237b059c5d8bfa21_a
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_a9eaea9254ac4eb5afb51ffd08c8883ac_a9eaea9254ac4eb5afb51ffd08c8883ac}{q12\+\_\+from\+\_\+qtm}} (qt, qm, root\+\_\+choose=\textquotesingle{}+\textquotesingle{})
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a86b6891338dff631c630a05c35fec79c_a86b6891338dff631c630a05c35fec79c}{fp}} (fname, io\+\_\+state=\textquotesingle{}r\textquotesingle{})
+def \mbox{\hyperlink{namespacemy__cbc__tools_a126396d14c8ff7ae15bad27a230f567e_a126396d14c8ff7ae15bad27a230f567e}{fp}} (fname, io\+\_\+state=\textquotesingle{}r\textquotesingle{}, type=\textquotesingle{}hdf\textquotesingle{})
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_a9072160a0f6b63cc14664a29d2239d33_a9072160a0f6b63cc14664a29d2239d33}{get\+\_\+txt\+\_\+pars}} (input\+\_\+file, delimiter=None)
 \item 
@@ -64,11 +70,13 @@ def \mbox{\hyperlink{namespacemy__cbc__tools_aa79abff3a2fc4c56b523cdebcb01960d_a
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_a0b214b1c53e5a7a66b1115a20df46c4e_a0b214b1c53e5a7a66b1115a20df46c4e}{load\+\_\+txt}} (input\+\_\+file, params\+\_\+list=None, delimiter=\textquotesingle{} \textquotesingle{})
 \item 
-def \mbox{\hyperlink{namespacemy__cbc__tools_a5caee8a04079f0323e0ab2c06eda0dbf_a5caee8a04079f0323e0ab2c06eda0dbf}{load\+\_\+hdf}} (fpath, data\+\_\+path=\char`\"{}/samples\char`\"{}, params\+\_\+list=None, data\+\_\+type=\char`\"{}pycbc\char`\"{}, pt\+\_\+sampler=False)
+def \mbox{\hyperlink{namespacemy__cbc__tools_aaef1a4dee25632a8fa97b5be102eae7e_aaef1a4dee25632a8fa97b5be102eae7e}{load\+\_\+hdf}} (fpath, data\+\_\+path=\char`\"{}/samples\char`\"{}, params\+\_\+list=None, data\+\_\+type=\char`\"{}pycbc\char`\"{}, pt\+\_\+sampler=False, return\+\_\+dict=False)
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_a3117b255457801af45ece864897b245b_a3117b255457801af45ece864897b245b}{load\+\_\+thin\+\_\+hdf}} (fpath, data\+\_\+path, params, pt\+\_\+sampler=True, flatten=True)
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_adff9bbe2bd80f1f0b83af02351ffe124_adff9bbe2bd80f1f0b83af02351ffe124}{write\+\_\+txt}} (filename, data\+\_\+list, title\+\_\+list, fill\+\_\+width=10)
+\item 
+def \mbox{\hyperlink{namespacemy__cbc__tools_a870aba84db14b82edb1902edbe22ed44_a870aba84db14b82edb1902edbe22ed44}{asymmetry\+\_\+dist}} (d\+\_\+lower, mean, d\+\_\+upper, conf\+\_\+interval=68.\+26)
 \item 
 def \mbox{\hyperlink{namespacemy__cbc__tools_a5ac92b497877682799e43e722e0b868a_a5ac92b497877682799e43e722e0b868a}{downsample}} (array, size)
 \item 
@@ -79,13 +87,39 @@ def \mbox{\hyperlink{namespacemy__cbc__tools_a1f724717f11ea28533c29afbf99a9061_a
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
+float \mbox{\hyperlink{namespacemy__cbc__tools_a79a1fde7b7caa2511f17b64e36414eee_a79a1fde7b7caa2511f17b64e36414eee}{r\+\_\+trans}} = 1.\+4766250385
+\item 
 float \mbox{\hyperlink{namespacemy__cbc__tools_a1c0da39c1abeed9d697276d15e8f4515_a1c0da39c1abeed9d697276d15e8f4515}{p\+\_\+mks\+\_\+to\+\_\+mev}} = 1.\+60218e32
 \item 
-float \mbox{\hyperlink{namespacemy__cbc__tools_ad74da7fb2bb4a68e9b76932256284080_ad74da7fb2bb4a68e9b76932256284080}{e\+\_\+mks\+\_\+to\+\_\+mev}} = 1.\+782661907e15
+float \mbox{\hyperlink{namespacemy__cbc__tools_a07c46006164ffdcf46bb0f271cf52ff4_a07c46006164ffdcf46bb0f271cf52ff4}{rho\+\_\+mks\+\_\+to\+\_\+mev}} = 1.\+782661907e15
+\item 
+float \mbox{\hyperlink{namespacemy__cbc__tools_a4e069b5eeee5bbe99622ed3bf0ca7ba9_a4e069b5eeee5bbe99622ed3bf0ca7ba9}{p\+\_\+geo\+\_\+to\+\_\+mks}} = 8.\+262346242653866e-\/45
+\item 
+float \mbox{\hyperlink{namespacemy__cbc__tools_aa5688539ae374e4e5dd22662b0001568_aa5688539ae374e4e5dd22662b0001568}{rho\+\_\+geo\+\_\+to\+\_\+mks}} = 7.\+425826474101849e-\/28
+\item 
+float \mbox{\hyperlink{namespacemy__cbc__tools_a2d9336c1a1b6283891ceeb499c220a3f_a2d9336c1a1b6283891ceeb499c220a3f}{p\+\_\+cactus\+\_\+to\+\_\+cgs}} = 1.\+80123683248503e-\/39
+\item 
+float \mbox{\hyperlink{namespacemy__cbc__tools_a55b5ca2857cdf24f7cf4db70e63b5483_a55b5ca2857cdf24f7cf4db70e63b5483}{rho\+\_\+cactus\+\_\+to\+\_\+cgs}} = 1.\+61887093132742e-\/18
+\item 
+list \mbox{\hyperlink{namespacemy__cbc__tools_a4179baa7ba3fe810f08e81329293b019_a4179baa7ba3fe810f08e81329293b019}{my\+\_\+colors}}
+\item 
+list \mbox{\hyperlink{namespacemy__cbc__tools_a303b7cc4e32650f26919622ccc034109_a303b7cc4e32650f26919622ccc034109}{useful\+\_\+centences}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacemy__cbc__tools_a870aba84db14b82edb1902edbe22ed44_a870aba84db14b82edb1902edbe22ed44}\label{namespacemy__cbc__tools_a870aba84db14b82edb1902edbe22ed44_a870aba84db14b82edb1902edbe22ed44}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!asymmetry\_dist@{asymmetry\_dist}}
+\index{asymmetry\_dist@{asymmetry\_dist}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{asymmetry\_dist()}{asymmetry\_dist()}}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+asymmetry\+\_\+dist (\begin{DoxyParamCaption}\item[{}]{d\+\_\+lower,  }\item[{}]{mean,  }\item[{}]{d\+\_\+upper,  }\item[{}]{conf\+\_\+interval = {\ttfamily 68.26} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}68% lower, mean, upper of a distribution
+\end{DoxyVerb}
+ 
+
+Definition at line 1590 of file my\+\_\+cbc\+\_\+tools.\+py.
+
 \mbox{\Hypertarget{namespacemy__cbc__tools_ac45ff06a5aebc2a642ed7772c036a98f_ac45ff06a5aebc2a642ed7772c036a98f}\label{namespacemy__cbc__tools_ac45ff06a5aebc2a642ed7772c036a98f_ac45ff06a5aebc2a642ed7772c036a98f}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!cal\_acl@{cal\_acl}}
 \index{cal\_acl@{cal\_acl}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -110,13 +144,13 @@ verbose: bool, optional
 \end{DoxyVerb}
  
 
-Definition at line 259 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 283 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_aca8b3988b6e107ecd26144f854e42451_aca8b3988b6e107ecd26144f854e42451}\label{namespacemy__cbc__tools_aca8b3988b6e107ecd26144f854e42451_aca8b3988b6e107ecd26144f854e42451}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a584178ee62f7f12ee892fa44c5231591_a584178ee62f7f12ee892fa44c5231591}\label{namespacemy__cbc__tools_a584178ee62f7f12ee892fa44c5231591_a584178ee62f7f12ee892fa44c5231591}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!cal\_kldiv@{cal\_kldiv}}
 \index{cal\_kldiv@{cal\_kldiv}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{cal\_kldiv()}{cal\_kldiv()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+cal\+\_\+kldiv (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{base = {\ttfamily 2.},  }\item[{}]{bw\+\_\+method = {\ttfamily \textquotesingle{}scott\textquotesingle{}},  }\item[{}]{scale\+\_\+th = {\ttfamily 1e-\/8},  }\item[{}]{bins = {\ttfamily \char`\"{}rice\char`\"{}},  }\item[{}]{use\+\_\+kde = {\ttfamily True},  }\item[{}]{verbose = {\ttfamily False},  }\item[{}]{cal\+\_\+jsd = {\ttfamily False} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+cal\+\_\+kldiv (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{base = {\ttfamily 2.},  }\item[{}]{bw\+\_\+method = {\ttfamily \textquotesingle{}scott\textquotesingle{}},  }\item[{}]{bins = {\ttfamily \char`\"{}rice\char`\"{}},  }\item[{}]{use\+\_\+kde = {\ttfamily False},  }\item[{}]{cal\+\_\+jsd = {\ttfamily False} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Calculate Kullback-Leibler divergence: KL(sample1|sample2)
 
@@ -130,14 +164,10 @@ base: float, optional
     log base to calculate KL
 bw_method: bw_method
     see doc of scipy.stats.gaussian_kde
-scale_th: float, optional
-    bins with hist<scal_th/bin_num will be ignored to avoid bias
 bins: bins 
     see doc of numpy.histogram
 use_kde: bool, optional
     use KDE method to mimic sample behavior or just use histogram method
-verbose: bool, optional
-    set to true to show important results
 cal_jsd: bool, optional
     set to true to calculate Jensen-Shannon divergence
 
@@ -148,40 +178,94 @@ divergence: float
 \end{DoxyVerb}
  
 
-Definition at line 442 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 478 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_aac5bae9d76ee1c5e6d07f7f762e87727_aac5bae9d76ee1c5e6d07f7f762e87727}\label{namespacemy__cbc__tools_aac5bae9d76ee1c5e6d07f7f762e87727_aac5bae9d76ee1c5e6d07f7f762e87727}} 
-\index{my\_cbc\_tools@{my\_cbc\_tools}!cal\_pdf\_hpd@{cal\_pdf\_hpd}}
-\index{cal\_pdf\_hpd@{cal\_pdf\_hpd}!my\_cbc\_tools@{my\_cbc\_tools}}
-\doxysubsubsection{\texorpdfstring{cal\_pdf\_hpd()}{cal\_pdf\_hpd()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+cal\+\_\+pdf\+\_\+hpd (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{pdf,  }\item[{}]{conf\+\_\+interval = {\ttfamily 90.},  }\item[{}]{debug = {\ttfamily False} }\end{DoxyParamCaption})}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_a584178ee62f7f12ee892fa44c5231591_a584178ee62f7f12ee892fa44c5231591_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemy__cbc__tools_ac823cff8e7109dce50340ab7f67c573e_ac823cff8e7109dce50340ab7f67c573e}\label{namespacemy__cbc__tools_ac823cff8e7109dce50340ab7f67c573e_ac823cff8e7109dce50340ab7f67c573e}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!cal\_pdf\_property@{cal\_pdf\_property}}
+\index{cal\_pdf\_property@{cal\_pdf\_property}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{cal\_pdf\_property()}{cal\_pdf\_property()}}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+cal\+\_\+pdf\+\_\+property (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{pdf,  }\item[{}]{conf\+\_\+interval = {\ttfamily 90.},  }\item[{}]{hpd = {\ttfamily False},  }\item[{}]{diff = {\ttfamily True},  }\item[{}]{round\+\_\+level = {\ttfamily 2},  }\item[{}]{debug = {\ttfamily False} }\end{DoxyParamCaption})}
 
-\begin{DoxyVerb}Return lower HPD confidence bound, median, upper HPD confidence bound of a 
-function. x and pdf must have the same size and been normalized. x do not need to be 
-equally separated. More pdf sample gives more accurate HPD interval.
+\begin{DoxyVerb}Return lower (HPD)confidence bound, median, upper (HPD)confidence bound of a 
+function. x and pdf must have the same size. x do not need to be equally separated and 
+pdf do not need to be normalized. More pdf samples give more accurate properties.
 \end{DoxyVerb}
  
 
-Definition at line 223 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 240 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a5d1152f630c7764d439d1741cfdf0da6_a5d1152f630c7764d439d1741cfdf0da6}\label{namespacemy__cbc__tools_a5d1152f630c7764d439d1741cfdf0da6_a5d1152f630c7764d439d1741cfdf0da6}} 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{namespacemy__cbc__tools_ac823cff8e7109dce50340ab7f67c573e_ac823cff8e7109dce50340ab7f67c573e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemy__cbc__tools_a415f73172330dc9296225431d80d98d7_a415f73172330dc9296225431d80d98d7}\label{namespacemy__cbc__tools_a415f73172330dc9296225431d80d98d7_a415f73172330dc9296225431d80d98d7}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!cal\_sample\_property@{cal\_sample\_property}}
 \index{cal\_sample\_property@{cal\_sample\_property}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{cal\_sample\_property()}{cal\_sample\_property()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+cal\+\_\+sample\+\_\+property (\begin{DoxyParamCaption}\item[{}]{sample,  }\item[{}]{conf\+\_\+interval = {\ttfamily 90.},  }\item[{}]{method = {\ttfamily \char`\"{}median\char`\"{}},  }\item[{}]{diff = {\ttfamily False} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+cal\+\_\+sample\+\_\+property (\begin{DoxyParamCaption}\item[{}]{sample,  }\item[{}]{conf\+\_\+interval = {\ttfamily 90.},  }\item[{}]{method = {\ttfamily \char`\"{}median\char`\"{}},  }\item[{}]{diff = {\ttfamily True},  }\item[{}]{round\+\_\+level = {\ttfamily 2} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Return  lower confidence bound, mean(or median), upper confidence bound. If diff
 is set to True, return (middle-lower, middle, upper-middle)
 \end{DoxyVerb}
  
 
-Definition at line 209 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 226 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a471674aaae8f8eb6e302aa51cb3fead8_a471674aaae8f8eb6e302aa51cb3fead8}\label{namespacemy__cbc__tools_a471674aaae8f8eb6e302aa51cb3fead8_a471674aaae8f8eb6e302aa51cb3fead8}} 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_a415f73172330dc9296225431d80d98d7_a415f73172330dc9296225431d80d98d7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemy__cbc__tools_a10dea7c8dceb84abd834af0c2d91c3a8_a10dea7c8dceb84abd834af0c2d91c3a8}\label{namespacemy__cbc__tools_a10dea7c8dceb84abd834af0c2d91c3a8_a10dea7c8dceb84abd834af0c2d91c3a8}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!compare\_pdf\_plots@{compare\_pdf\_plots}}
+\index{compare\_pdf\_plots@{compare\_pdf\_plots}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{compare\_pdf\_plots()}{compare\_pdf\_plots()}}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+pdf\+\_\+plots (\begin{DoxyParamCaption}\item[{}]{funcs,  }\item[{}]{xbound,  }\item[{}]{conf\+\_\+interval = {\ttfamily 90.},  }\item[{}]{labels = {\ttfamily None},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{ylabel = {\ttfamily \textquotesingle{}PDF\textquotesingle{}},  }\item[{}]{colors = {\ttfamily None},  }\item[{}]{filename = {\ttfamily None},  }\item[{}]{lw = {\ttfamily 2},  }\item[{}]{show\+\_\+vlines = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compare multi pdfs.
+
+Parameters
+----------
+funcs: list of univariate normed functions
+xrange: (xmin, xmax) tuple of double
+percentiles: list of float
+    Percentiles to be shown.
+labels: labels to show
+filename: str
+    save to path 'filename' if given, show it directly it is default value
+\end{DoxyVerb}
+ 
+
+Definition at line 702 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{namespacemy__cbc__tools_a10dea7c8dceb84abd834af0c2d91c3a8_a10dea7c8dceb84abd834af0c2d91c3a8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemy__cbc__tools_a1ecd4cb11bc60effe8b4ade9740b8fde_a1ecd4cb11bc60effe8b4ade9740b8fde}\label{namespacemy__cbc__tools_a1ecd4cb11bc60effe8b4ade9740b8fde_a1ecd4cb11bc60effe8b4ade9740b8fde}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!compare\_sample\_plots@{compare\_sample\_plots}}
 \index{compare\_sample\_plots@{compare\_sample\_plots}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{compare\_sample\_plots()}{compare\_sample\_plots()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+sample\+\_\+plots (\begin{DoxyParamCaption}\item[{}]{samples,  }\item[{}]{percentiles = {\ttfamily \mbox{[}5.,~50.,~95.\mbox{]}},  }\item[{}]{labels = {\ttfamily None},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+sample\+\_\+plots (\begin{DoxyParamCaption}\item[{}]{samples,  }\item[{}]{percentiles = {\ttfamily \mbox{[}5.,~50.,~95.\mbox{]}},  }\item[{}]{labels = {\ttfamily None},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{xmin = {\ttfamily None},  }\item[{}]{xmax = {\ttfamily None},  }\item[{}]{ylabel = {\ttfamily \textquotesingle{}PDF\textquotesingle{}},  }\item[{}]{colors = {\ttfamily None},  }\item[{}]{filename = {\ttfamily None},  }\item[{}]{lw = {\ttfamily 2},  }\item[{}]{show\+\_\+vlines = {\ttfamily True},  }\item[{}]{bw\+\_\+method = {\ttfamily \char`\"{}scott\char`\"{}} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Compare multi samples.
 
@@ -190,16 +274,18 @@ Parameters
 percentiles: list of float
     Percentiles to be shown.
 labels: labels to show
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 569 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 745 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a8074232397d0e1df270cc14c42cb210d_a8074232397d0e1df270cc14c42cb210d}\label{namespacemy__cbc__tools_a8074232397d0e1df270cc14c42cb210d_a8074232397d0e1df270cc14c42cb210d}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a998f4c01085ca90c8d83095e9fded42b_a998f4c01085ca90c8d83095e9fded42b}\label{namespacemy__cbc__tools_a998f4c01085ca90c8d83095e9fded42b_a998f4c01085ca90c8d83095e9fded42b}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!compare\_two\_sample\_pairs@{compare\_two\_sample\_pairs}}
 \index{compare\_two\_sample\_pairs@{compare\_two\_sample\_pairs}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{compare\_two\_sample\_pairs()}{compare\_two\_sample\_pairs()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+two\+\_\+sample\+\_\+pairs (\begin{DoxyParamCaption}\item[{}]{pair1,  }\item[{}]{pair2,  }\item[{}]{xlabel = {\ttfamily None},  }\item[{}]{ylabel = {\ttfamily None},  }\item[{}]{colors = {\ttfamily \mbox{[}\textquotesingle{}c\textquotesingle{},~\textquotesingle{}m\textquotesingle{}\mbox{]}},  }\item[{}]{lower\+\_\+1 = {\ttfamily None},  }\item[{}]{upper\+\_\+1 = {\ttfamily None},  }\item[{}]{lower\+\_\+2 = {\ttfamily None},  }\item[{}]{upper\+\_\+2 = {\ttfamily None},  }\item[{}]{m\+\_\+pt = {\ttfamily \mbox{[}5,~50,~95\mbox{]}},  }\item[{}]{c\+\_\+pt = {\ttfamily \mbox{[}68.3,~95.5\mbox{]}},  }\item[{}]{plot\+\_\+config = {\ttfamily None} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+two\+\_\+sample\+\_\+pairs (\begin{DoxyParamCaption}\item[{}]{pair1,  }\item[{}]{pair2,  }\item[{}]{xlabel = {\ttfamily None},  }\item[{}]{ylabel = {\ttfamily None},  }\item[{}]{colors = {\ttfamily \mbox{[}\textquotesingle{}c\textquotesingle{},~\textquotesingle{}m\textquotesingle{}\mbox{]}},  }\item[{}]{lower\+\_\+1 = {\ttfamily None},  }\item[{}]{upper\+\_\+1 = {\ttfamily None},  }\item[{}]{lower\+\_\+2 = {\ttfamily None},  }\item[{}]{upper\+\_\+2 = {\ttfamily None},  }\item[{}]{m\+\_\+pt = {\ttfamily \mbox{[}5,~50,~95\mbox{]}},  }\item[{}]{c\+\_\+pt = {\ttfamily \mbox{[}68.3,~95.5\mbox{]}},  }\item[{}]{plot\+\_\+config = {\ttfamily None},  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Compare two variable density plots using PyCBC.
 
@@ -213,16 +299,18 @@ m_pt: list of float
     marginal_percentiles
 c_pt: list of float  
     contour_percentiles
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 723 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 961 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a215f752ba4628aa7d6bef8e795f83595_a215f752ba4628aa7d6bef8e795f83595}\label{namespacemy__cbc__tools_a215f752ba4628aa7d6bef8e795f83595_a215f752ba4628aa7d6bef8e795f83595}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a3f49dfe8ff57798576a7c381b5793623_a3f49dfe8ff57798576a7c381b5793623}\label{namespacemy__cbc__tools_a3f49dfe8ff57798576a7c381b5793623_a3f49dfe8ff57798576a7c381b5793623}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!compare\_two\_sample\_plots@{compare\_two\_sample\_plots}}
 \index{compare\_two\_sample\_plots@{compare\_two\_sample\_plots}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{compare\_two\_sample\_plots()}{compare\_two\_sample\_plots()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+two\+\_\+sample\+\_\+plots (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{percentiles = {\ttfamily \mbox{[}5.,~50.,~95.\mbox{]}},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{xscale = {\ttfamily \textquotesingle{}linear\textquotesingle{}},  }\item[{}]{xmin = {\ttfamily None},  }\item[{}]{xmax = {\ttfamily None},  }\item[{}]{bins = {\ttfamily \textquotesingle{}auto\textquotesingle{}},  }\item[{}]{histtype = {\ttfamily \textquotesingle{}bar\textquotesingle{}},  }\item[{}]{c1 = {\ttfamily None},  }\item[{}]{c2 = {\ttfamily None},  }\item[{}]{name1 = {\ttfamily None},  }\item[{}]{name2 = {\ttfamily None} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+two\+\_\+sample\+\_\+plots (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{percentiles = {\ttfamily \mbox{[}5.,~50.,~95.\mbox{]}},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{xscale = {\ttfamily \textquotesingle{}linear\textquotesingle{}},  }\item[{}]{xmin = {\ttfamily None},  }\item[{}]{xmax = {\ttfamily None},  }\item[{}]{bins = {\ttfamily \textquotesingle{}auto\textquotesingle{}},  }\item[{}]{histtype = {\ttfamily \textquotesingle{}bar\textquotesingle{}},  }\item[{}]{c1 = {\ttfamily None},  }\item[{}]{c2 = {\ttfamily None},  }\item[{}]{name1 = {\ttfamily None},  }\item[{}]{name2 = {\ttfamily None},  }\item[{}]{filename = {\ttfamily None},  }\item[{}]{show\+\_\+hist = {\ttfamily False} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Compare two samples.
 
@@ -234,11 +322,21 @@ bins: bins
     see numpy.histogram
 histtype: histtype
     see pyplot.hist
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 630 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 857 of file my\+\_\+cbc\+\_\+tools.\+py.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_a3f49dfe8ff57798576a7c381b5793623_a3f49dfe8ff57798576a7c381b5793623_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacemy__cbc__tools_ad879ddfdbda44e1d9c315ed340557b6d_ad879ddfdbda44e1d9c315ed340557b6d}\label{namespacemy__cbc__tools_ad879ddfdbda44e1d9c315ed340557b6d_ad879ddfdbda44e1d9c315ed340557b6d}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!compare\_two\_sample\_stats@{compare\_two\_sample\_stats}}
 \index{compare\_two\_sample\_stats@{compare\_two\_sample\_stats}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -249,18 +347,45 @@ Definition at line 630 of file my\+\_\+cbc\+\_\+tools.\+py.
 \end{DoxyVerb}
  
 
-Definition at line 610 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 813 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a2d1689e4686ec18ce8c7b8fc2eee23bf_a2d1689e4686ec18ce8c7b8fc2eee23bf}\label{namespacemy__cbc__tools_a2d1689e4686ec18ce8c7b8fc2eee23bf_a2d1689e4686ec18ce8c7b8fc2eee23bf}} 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_ad879ddfdbda44e1d9c315ed340557b6d_ad879ddfdbda44e1d9c315ed340557b6d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_ad879ddfdbda44e1d9c315ed340557b6d_ad879ddfdbda44e1d9c315ed340557b6d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemy__cbc__tools_a3d36b18c910b76d2eef4d41cd16a9b7e_a3d36b18c910b76d2eef4d41cd16a9b7e}\label{namespacemy__cbc__tools_a3d36b18c910b76d2eef4d41cd16a9b7e_a3d36b18c910b76d2eef4d41cd16a9b7e}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!compare\_two\_samples@{compare\_two\_samples}}
 \index{compare\_two\_samples@{compare\_two\_samples}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{compare\_two\_samples()}{compare\_two\_samples()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+two\+\_\+samples (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+compare\+\_\+two\+\_\+samples (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
 
+\begin{DoxyVerb}filename: str
+    save to path 'filename' if given, show it directly it is default value
+\end{DoxyVerb}
+ 
 
+Definition at line 938 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-Definition at line 705 of file my\+\_\+cbc\+\_\+tools.\+py.
-
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_a3d36b18c910b76d2eef4d41cd16a9b7e_a3d36b18c910b76d2eef4d41cd16a9b7e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacemy__cbc__tools_a5ac92b497877682799e43e722e0b868a_a5ac92b497877682799e43e722e0b868a}\label{namespacemy__cbc__tools_a5ac92b497877682799e43e722e0b868a_a5ac92b497877682799e43e722e0b868a}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!downsample@{downsample}}
 \index{downsample@{downsample}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -271,7 +396,7 @@ Definition at line 705 of file my\+\_\+cbc\+\_\+tools.\+py.
 \end{DoxyVerb}
  
 
-Definition at line 1324 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1622 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_ae44daa795536ec6ca4e04929359f4b49_ae44daa795536ec6ca4e04929359f4b49}\label{namespacemy__cbc__tools_ae44daa795536ec6ca4e04929359f4b49_ae44daa795536ec6ca4e04929359f4b49}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!dynamic\_single@{dynamic\_single}}
@@ -300,7 +425,7 @@ percentiles: list of float, optional
 \end{DoxyVerb}
  
 
-Definition at line 765 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1006 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_abb0957085b9440ca8249188458608f49_abb0957085b9440ca8249188458608f49}\label{namespacemy__cbc__tools_abb0957085b9440ca8249188458608f49_abb0957085b9440ca8249188458608f49}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!dynamic\_walkers@{dynamic\_walkers}}
@@ -329,17 +454,17 @@ percentiles: list of float, optional
 \end{DoxyVerb}
  
 
-Definition at line 837 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1078 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a86b6891338dff631c630a05c35fec79c_a86b6891338dff631c630a05c35fec79c}\label{namespacemy__cbc__tools_a86b6891338dff631c630a05c35fec79c_a86b6891338dff631c630a05c35fec79c}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a126396d14c8ff7ae15bad27a230f567e_a126396d14c8ff7ae15bad27a230f567e}\label{namespacemy__cbc__tools_a126396d14c8ff7ae15bad27a230f567e_a126396d14c8ff7ae15bad27a230f567e}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!fp@{fp}}
 \index{fp@{fp}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{fp()}{fp()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+fp (\begin{DoxyParamCaption}\item[{}]{fname,  }\item[{}]{io\+\_\+state = {\ttfamily \textquotesingle{}r\textquotesingle{}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+fp (\begin{DoxyParamCaption}\item[{}]{fname,  }\item[{}]{io\+\_\+state = {\ttfamily \textquotesingle{}r\textquotesingle{}},  }\item[{}]{type = {\ttfamily \textquotesingle{}hdf\textquotesingle{}} }\end{DoxyParamCaption})}
 
 
 
-Definition at line 1083 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1336 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_aa79abff3a2fc4c56b523cdebcb01960d_aa79abff3a2fc4c56b523cdebcb01960d}\label{namespacemy__cbc__tools_aa79abff3a2fc4c56b523cdebcb01960d_aa79abff3a2fc4c56b523cdebcb01960d}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!get\_hdf\_pars@{get\_hdf\_pars}}
@@ -364,7 +489,7 @@ list of strings
 \end{DoxyVerb}
  
 
-Definition at line 1107 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1367 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_ac0a8983dd797f7e9715b71154f1e1def_ac0a8983dd797f7e9715b71154f1e1def}\label{namespacemy__cbc__tools_ac0a8983dd797f7e9715b71154f1e1def_ac0a8983dd797f7e9715b71154f1e1def}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!get\_lt\_prior\_from\_m12l12@{get\_lt\_prior\_from\_m12l12}}
@@ -392,8 +517,16 @@ prior sample of lambda tilde: list
 \end{DoxyVerb}
  
 
-Definition at line 916 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1150 of file my\+\_\+cbc\+\_\+tools.\+py.
 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{namespacemy__cbc__tools_ac0a8983dd797f7e9715b71154f1e1def_ac0a8983dd797f7e9715b71154f1e1def_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacemy__cbc__tools_aa77fafaa878493d63945eb50688ef2b3_aa77fafaa878493d63945eb50688ef2b3}\label{namespacemy__cbc__tools_aa77fafaa878493d63945eb50688ef2b3_aa77fafaa878493d63945eb50688ef2b3}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!get\_lt\_prior\_from\_mcql12@{get\_lt\_prior\_from\_mcql12}}
 \index{get\_lt\_prior\_from\_mcql12@{get\_lt\_prior\_from\_mcql12}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -420,8 +553,16 @@ prior sample of lambda tilde: list
 \end{DoxyVerb}
  
 
-Definition at line 957 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1193 of file my\+\_\+cbc\+\_\+tools.\+py.
 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_aa77fafaa878493d63945eb50688ef2b3_aa77fafaa878493d63945eb50688ef2b3_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacemy__cbc__tools_a9072160a0f6b63cc14664a29d2239d33_a9072160a0f6b63cc14664a29d2239d33}\label{namespacemy__cbc__tools_a9072160a0f6b63cc14664a29d2239d33_a9072160a0f6b63cc14664a29d2239d33}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!get\_txt\_pars@{get\_txt\_pars}}
 \index{get\_txt\_pars@{get\_txt\_pars}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -443,7 +584,7 @@ list of strings
 \end{DoxyVerb}
  
 
-Definition at line 1087 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1347 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a71fa167b2d43f27745b75a26dbcefc7d_a71fa167b2d43f27745b75a26dbcefc7d}\label{namespacemy__cbc__tools_a71fa167b2d43f27745b75a26dbcefc7d_a71fa167b2d43f27745b75a26dbcefc7d}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!hpd\_interval@{hpd\_interval}}
@@ -499,7 +640,7 @@ HPD interval:tuple
 \end{DoxyVerb}
  
 
-Definition at line 24 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 41 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a85f776a69ab43839237b059c5d8bfa21_a85f776a69ab43839237b059c5d8bfa21}\label{namespacemy__cbc__tools_a85f776a69ab43839237b059c5d8bfa21_a85f776a69ab43839237b059c5d8bfa21}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!lambda\_tilde@{lambda\_tilde}}
@@ -509,13 +650,21 @@ Definition at line 24 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1063 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1317 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a5caee8a04079f0323e0ab2c06eda0dbf_a5caee8a04079f0323e0ab2c06eda0dbf}\label{namespacemy__cbc__tools_a5caee8a04079f0323e0ab2c06eda0dbf_a5caee8a04079f0323e0ab2c06eda0dbf}} 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_a85f776a69ab43839237b059c5d8bfa21_a85f776a69ab43839237b059c5d8bfa21_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemy__cbc__tools_aaef1a4dee25632a8fa97b5be102eae7e_aaef1a4dee25632a8fa97b5be102eae7e}\label{namespacemy__cbc__tools_aaef1a4dee25632a8fa97b5be102eae7e_aaef1a4dee25632a8fa97b5be102eae7e}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!load\_hdf@{load\_hdf}}
 \index{load\_hdf@{load\_hdf}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{load\_hdf()}{load\_hdf()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+load\+\_\+hdf (\begin{DoxyParamCaption}\item[{}]{fpath,  }\item[{}]{data\+\_\+path = {\ttfamily \char`\"{}/samples\char`\"{}},  }\item[{}]{params\+\_\+list = {\ttfamily None},  }\item[{}]{data\+\_\+type = {\ttfamily \char`\"{}pycbc\char`\"{}},  }\item[{}]{pt\+\_\+sampler = {\ttfamily False} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+load\+\_\+hdf (\begin{DoxyParamCaption}\item[{}]{fpath,  }\item[{}]{data\+\_\+path = {\ttfamily \char`\"{}/samples\char`\"{}},  }\item[{}]{params\+\_\+list = {\ttfamily None},  }\item[{}]{data\+\_\+type = {\ttfamily \char`\"{}pycbc\char`\"{}},  }\item[{}]{pt\+\_\+sampler = {\ttfamily False},  }\item[{}]{return\+\_\+dict = {\ttfamily False} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Read hdf data.
 
@@ -542,7 +691,7 @@ numpy.ndarray
 \end{DoxyVerb}
  
 
-Definition at line 1177 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1437 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a3117b255457801af45ece864897b245b_a3117b255457801af45ece864897b245b}\label{namespacemy__cbc__tools_a3117b255457801af45ece864897b245b_a3117b255457801af45ece864897b245b}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!load\_thin\_hdf@{load\_thin\_hdf}}
@@ -571,7 +720,7 @@ numpy.ndarray
 \end{DoxyVerb}
  
 
-Definition at line 1239 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1501 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a0b214b1c53e5a7a66b1115a20df46c4e_a0b214b1c53e5a7a66b1115a20df46c4e}\label{namespacemy__cbc__tools_a0b214b1c53e5a7a66b1115a20df46c4e_a0b214b1c53e5a7a66b1115a20df46c4e}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!load\_txt@{load\_txt}}
@@ -596,7 +745,7 @@ numpy.ndarray
 \end{DoxyVerb}
  
 
-Definition at line 1144 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1404 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a7440bac99cb54cc6d4ac8bb31f9c8d99_a7440bac99cb54cc6d4ac8bb31f9c8d99}\label{namespacemy__cbc__tools_a7440bac99cb54cc6d4ac8bb31f9c8d99_a7440bac99cb54cc6d4ac8bb31f9c8d99}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!m12\_from\_mcq@{m12\_from\_mcq}}
@@ -606,8 +755,16 @@ Definition at line 1144 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1057 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1305 of file my\+\_\+cbc\+\_\+tools.\+py.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_a7440bac99cb54cc6d4ac8bb31f9c8d99_a7440bac99cb54cc6d4ac8bb31f9c8d99_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacemy__cbc__tools_ad15f4cf80fee5024e3d408466e4273e1_ad15f4cf80fee5024e3d408466e4273e1}\label{namespacemy__cbc__tools_ad15f4cf80fee5024e3d408466e4273e1_ad15f4cf80fee5024e3d408466e4273e1}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!mclt\_from\_m12l12@{mclt\_from\_m12l12}}
 \index{mclt\_from\_m12l12@{mclt\_from\_m12l12}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -616,8 +773,16 @@ Definition at line 1057 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1045 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1288 of file my\+\_\+cbc\+\_\+tools.\+py.
 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemy__cbc__tools_ad15f4cf80fee5024e3d408466e4273e1_ad15f4cf80fee5024e3d408466e4273e1_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacemy__cbc__tools_acb04613bbb77827a6d481a18a63b7345_acb04613bbb77827a6d481a18a63b7345}\label{namespacemy__cbc__tools_acb04613bbb77827a6d481a18a63b7345_acb04613bbb77827a6d481a18a63b7345}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!mcq\_from\_m12@{mcq\_from\_m12}}
 \index{mcq\_from\_m12@{mcq\_from\_m12}!my\_cbc\_tools@{my\_cbc\_tools}}
@@ -626,28 +791,37 @@ Definition at line 1045 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1051 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1296 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a68efffc2b27b1f979db7bad1a6e37d8b_a68efffc2b27b1f979db7bad1a6e37d8b}\label{namespacemy__cbc__tools_a68efffc2b27b1f979db7bad1a6e37d8b_a68efffc2b27b1f979db7bad1a6e37d8b}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_ac808c1945ee9dbdf5348f0e872c8f877_ac808c1945ee9dbdf5348f0e872c8f877}\label{namespacemy__cbc__tools_ac808c1945ee9dbdf5348f0e872c8f877_ac808c1945ee9dbdf5348f0e872c8f877}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_corr@{plot\_corr}}
 \index{plot\_corr@{plot\_corr}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{plot\_corr()}{plot\_corr()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+corr (\begin{DoxyParamCaption}\item[{}]{samples,  }\item[{}]{names = {\ttfamily None},  }\item[{}]{cluster = {\ttfamily True},  }\item[{}]{metric\+\_\+par = {\ttfamily (2,~4)},  }\item[{}]{cmap = {\ttfamily \char`\"{}Blues\char`\"{}},  }\item[{$\ast$$\ast$}]{kargs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+corr (\begin{DoxyParamCaption}\item[{}]{samples,  }\item[{}]{names = {\ttfamily None},  }\item[{}]{cluster = {\ttfamily True},  }\item[{}]{annot = {\ttfamily True},  }\item[{}]{figsize = {\ttfamily (10,~10)},  }\item[{}]{metric\+\_\+par = {\ttfamily (2,~4)},  }\item[{}]{cmap = {\ttfamily \char`\"{}Blues\char`\"{}},  }\item[{}]{filename = {\ttfamily None},  }\item[{}]{mask\+\_\+sym = {\ttfamily True},  }\item[{$\ast$$\ast$}]{kargs }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Plot cross correlation map.
 
 Parameters
 ----------
+
 samples: array like
     samples to calculate correlation heat/cluster map
 names: list of string, optional
     name of every dimension of samples
 cluster: bool, optional
     plot a cluster map or heat map
+anoot: bool, optional
+    whether to note the correlation number
+figsize: tuple, optional
+    figure size 
 metric_par: tuple of int, optional
     the metric is 'sin(t)^a*(sum_i{abs(u_i)-abs(v_i)})^b'
 cmap: cmap 
     cmap of matplotlib
+filename: str
+    save to path 'filename' if given, show it directly it is default value
+mask_sym: bool, optional
+    whether to mask the symmetry part
 kargs: dict
     transfered to heat map or cluster map
 
@@ -657,13 +831,26 @@ Returns
 \end{DoxyVerb}
  
 
-Definition at line 521 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 636 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_acb9ba5c8b95e69b4565ebd4369853b1d_acb9ba5c8b95e69b4565ebd4369853b1d}\label{namespacemy__cbc__tools_acb9ba5c8b95e69b4565ebd4369853b1d_acb9ba5c8b95e69b4565ebd4369853b1d}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a022ada7a6efab2e0a962d2dc9d8dc8f3_a022ada7a6efab2e0a962d2dc9d8dc8f3}\label{namespacemy__cbc__tools_a022ada7a6efab2e0a962d2dc9d8dc8f3_a022ada7a6efab2e0a962d2dc9d8dc8f3}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_crude\_diff@{plot\_crude\_diff}}
+\index{plot\_crude\_diff@{plot\_crude\_diff}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{plot\_crude\_diff()}{plot\_crude\_diff()}}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+crude\+\_\+diff (\begin{DoxyParamCaption}\item[{}]{lmh1,  }\item[{}]{lmh2,  }\item[{}]{lb1 = {\ttfamily \textquotesingle{}1\textquotesingle{}},  }\item[{}]{lb2 = {\ttfamily \textquotesingle{}2\textquotesingle{}},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}filename: str
+    save to path 'filename' if given, show it directly it is default value
+\end{DoxyVerb}
+ 
+
+Definition at line 835 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a47e390537d718439ec4d78262bac5ded_a47e390537d718439ec4d78262bac5ded}\label{namespacemy__cbc__tools_a47e390537d718439ec4d78262bac5ded_a47e390537d718439ec4d78262bac5ded}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_density@{plot\_density}}
 \index{plot\_density@{plot\_density}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{plot\_density()}{plot\_density()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+density (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{true\+\_\+values = {\ttfamily None},  }\item[{}]{xlabel = {\ttfamily None},  }\item[{}]{ylabel = {\ttfamily None},  }\item[{}]{m\+\_\+pt = {\ttfamily \mbox{[}5,~50,~95\mbox{]}},  }\item[{}]{c\+\_\+pt = {\ttfamily \mbox{[}68.3,~95.5\mbox{]}},  }\item[{}]{lower\+\_\+1 = {\ttfamily None},  }\item[{}]{upper\+\_\+1 = {\ttfamily None},  }\item[{}]{lower\+\_\+2 = {\ttfamily None},  }\item[{}]{upper\+\_\+2 = {\ttfamily None},  }\item[{$\ast$$\ast$}]{kargs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+density (\begin{DoxyParamCaption}\item[{}]{sample1,  }\item[{}]{sample2,  }\item[{}]{true\+\_\+values = {\ttfamily None},  }\item[{}]{xlabel = {\ttfamily None},  }\item[{}]{ylabel = {\ttfamily None},  }\item[{}]{m\+\_\+pt = {\ttfamily \mbox{[}5,~50,~95\mbox{]}},  }\item[{}]{c\+\_\+pt = {\ttfamily \mbox{[}68.3,~95.5\mbox{]}},  }\item[{}]{filename = {\ttfamily None},  }\item[{}]{lower\+\_\+1 = {\ttfamily None},  }\item[{}]{upper\+\_\+1 = {\ttfamily None},  }\item[{}]{lower\+\_\+2 = {\ttfamily None},  }\item[{}]{upper\+\_\+2 = {\ttfamily None},  }\item[{$\ast$$\ast$}]{kargs }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Plot two variable density plot using PyCBC.
 
@@ -673,16 +860,59 @@ m_pt: list of float
     marginal_percentiles
 c_pt: list of float
     contour_percentiles
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 365 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 394 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_a612f089bf80f1ce094808551065f1be2_a612f089bf80f1ce094808551065f1be2}\label{namespacemy__cbc__tools_a612f089bf80f1ce094808551065f1be2_a612f089bf80f1ce094808551065f1be2}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a45251fce10b6772118d76c139a6592be_a45251fce10b6772118d76c139a6592be}\label{namespacemy__cbc__tools_a45251fce10b6772118d76c139a6592be_a45251fce10b6772118d76c139a6592be}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_group\_Multi@{plot\_group\_Multi}}
+\index{plot\_group\_Multi@{plot\_group\_Multi}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{plot\_group\_Multi()}{plot\_group\_Multi()}}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+group\+\_\+\+Multi (\begin{DoxyParamCaption}\item[{}]{groupdata,  }\item[{}]{x\+\_\+labels = {\ttfamily None},  }\item[{}]{precisions = {\ttfamily None},  }\item[{}]{bound = {\ttfamily None},  }\item[{}]{m\+\_\+pt = {\ttfamily \mbox{[}15.85,~50,~84.15\mbox{]}},  }\item[{}]{c\+\_\+pt = {\ttfamily 68.3},  }\item[{}]{true\+\_\+values = {\ttfamily None},  }\item[{}]{colors = {\ttfamily None},  }\item[{}]{labels = {\ttfamily None},  }\item[{}]{textloc = {\ttfamily \mbox{[}0.75,~0.90,~0.00,~0.025\mbox{]}},  }\item[{}]{title\+\_\+size = {\ttfamily 11},  }\item[{}]{legend\+\_\+size = {\ttfamily 30},  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plot groups of multi-dim data.
+
+Parameters
+----------
+groupdata: list
+    groups of samples to compare
+x_labels: list of string, optional
+    name of every dimension of samples
+precisions: list of int, optional
+    precision of title shown
+bound: list, optional
+    [[low], [up]] limits of each parameters
+colors: list
+    colors of each sample
+m_pt: list, default is [15.85, 50, 84.15] 
+    percentiles of every dimension of samples
+c_pt: float, default is 68.3
+    contour percentile
+true_values: list, optional
+    injected values
+labels: list, optional
+    tag of each group
+textloc: list, request only if labels is not None
+    control where to put the text, format is [xbegin, ybegin, xshift, yshift]
+filename: str
+    save to path 'filename' if given, show it directly it is default value
+
+Returns
+-------
+    None
+\end{DoxyVerb}
+ 
+
+Definition at line 530 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_aeee550ec5e0e6f2b5ae8595e9b66eb9d_aeee550ec5e0e6f2b5ae8595e9b66eb9d}\label{namespacemy__cbc__tools_aeee550ec5e0e6f2b5ae8595e9b66eb9d_aeee550ec5e0e6f2b5ae8595e9b66eb9d}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_mass\_range@{plot\_mass\_range}}
 \index{plot\_mass\_range@{plot\_mass\_range}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{plot\_mass\_range()}{plot\_mass\_range()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+mass\+\_\+range (\begin{DoxyParamCaption}\item[{}]{m1\+\_\+range,  }\item[{}]{mc\+\_\+range,  }\item[{}]{q\+\_\+range,  }\item[{}]{m2\+\_\+range = {\ttfamily None} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+mass\+\_\+range (\begin{DoxyParamCaption}\item[{}]{m1\+\_\+range,  }\item[{}]{mc\+\_\+range,  }\item[{}]{q\+\_\+range,  }\item[{}]{m2\+\_\+range = {\ttfamily None},  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Show allowed range of mass given constraint of mass1, mass2, chirp
 mass and mass ratio, a range should be a tuple like (lower, upper) 
@@ -697,16 +927,18 @@ q_range: tuple of float
     range of mass ratio
 m2_range: tuple of float, optional
     range of mass2, set to m1_range by default
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 998 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1234 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_aaad1da9e2e4959ab8e6e3c6f4f0663ea_aaad1da9e2e4959ab8e6e3c6f4f0663ea}\label{namespacemy__cbc__tools_aaad1da9e2e4959ab8e6e3c6f4f0663ea_aaad1da9e2e4959ab8e6e3c6f4f0663ea}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a7d5289904e0849dc09b94a24c7401266_a7d5289904e0849dc09b94a24c7401266}\label{namespacemy__cbc__tools_a7d5289904e0849dc09b94a24c7401266_a7d5289904e0849dc09b94a24c7401266}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_single@{plot\_single}}
 \index{plot\_single@{plot\_single}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{plot\_single()}{plot\_single()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+single (\begin{DoxyParamCaption}\item[{}]{sample,  }\item[{}]{true\+\_\+value = {\ttfamily None},  }\item[{}]{percentiles = {\ttfamily \mbox{[}5.,~50.,~95.\mbox{]}},  }\item[{}]{bins = {\ttfamily \textquotesingle{}auto\textquotesingle{}},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{xscale = {\ttfamily \textquotesingle{}linear\textquotesingle{}},  }\item[{}]{xmin = {\ttfamily None},  }\item[{}]{xmax = {\ttfamily None} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+single (\begin{DoxyParamCaption}\item[{}]{sample,  }\item[{}]{true\+\_\+value = {\ttfamily None},  }\item[{}]{percentiles = {\ttfamily \mbox{[}5.,~50.,~95.\mbox{]}},  }\item[{}]{bins = {\ttfamily \textquotesingle{}auto\textquotesingle{}},  }\item[{}]{xlabel = {\ttfamily \textquotesingle{}x\textquotesingle{}},  }\item[{}]{xscale = {\ttfamily \textquotesingle{}linear\textquotesingle{}},  }\item[{}]{xmin = {\ttfamily None},  }\item[{}]{xmax = {\ttfamily None},  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Show single sample properties.
 
@@ -717,16 +949,18 @@ sample: 1D array like
 percentiles: list of float
     Percentiles to be shown.
 bins: see numpy.histogram
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 314 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 338 of file my\+\_\+cbc\+\_\+tools.\+py.
 
-\mbox{\Hypertarget{namespacemy__cbc__tools_acd15552d8528bf75728d970eb037364b_acd15552d8528bf75728d970eb037364b}\label{namespacemy__cbc__tools_acd15552d8528bf75728d970eb037364b_acd15552d8528bf75728d970eb037364b}} 
+\mbox{\Hypertarget{namespacemy__cbc__tools_a347273a20681d7f3f66d0e97eb736b88_a347273a20681d7f3f66d0e97eb736b88}\label{namespacemy__cbc__tools_a347273a20681d7f3f66d0e97eb736b88_a347273a20681d7f3f66d0e97eb736b88}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!plot\_unique@{plot\_unique}}
 \index{plot\_unique@{plot\_unique}!my\_cbc\_tools@{my\_cbc\_tools}}
 \doxysubsubsection{\texorpdfstring{plot\_unique()}{plot\_unique()}}
-{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+unique (\begin{DoxyParamCaption}\item[{}]{sample,  }\item[{}]{show\+\_\+repeated = {\ttfamily False} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def my\+\_\+cbc\+\_\+tools.\+plot\+\_\+unique (\begin{DoxyParamCaption}\item[{}]{sample,  }\item[{}]{show\+\_\+repeated = {\ttfamily False},  }\item[{}]{filename = {\ttfamily None} }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Show how unique data points in a sample vary with time.
 
@@ -736,10 +970,12 @@ sample: 1D array like
     If the data is two dimensional, it will be averaged along the 0-axis.
 show_repeated: bool, optional
     Whether to show the samples repeated.
+filename: str
+    save to path 'filename' if given, show it directly it is default value
 \end{DoxyVerb}
  
 
-Definition at line 394 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 428 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a9eaea9254ac4eb5afb51ffd08c8883ac_a9eaea9254ac4eb5afb51ffd08c8883ac}\label{namespacemy__cbc__tools_a9eaea9254ac4eb5afb51ffd08c8883ac_a9eaea9254ac4eb5afb51ffd08c8883ac}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!q12\_from\_qtm@{q12\_from\_qtm}}
@@ -749,7 +985,7 @@ Definition at line 394 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1067 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1321 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a1f724717f11ea28533c29afbf99a9061_a1f724717f11ea28533c29afbf99a9061}\label{namespacemy__cbc__tools_a1f724717f11ea28533c29afbf99a9061_a1f724717f11ea28533c29afbf99a9061}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!time\_before\_merger@{time\_before\_merger}}
@@ -759,7 +995,7 @@ Definition at line 1067 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1358 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1656 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a12719f7cc25ac7f6a0495ce31ecd5375_a12719f7cc25ac7f6a0495ce31ecd5375}\label{namespacemy__cbc__tools_a12719f7cc25ac7f6a0495ce31ecd5375_a12719f7cc25ac7f6a0495ce31ecd5375}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!unique\_2darray@{unique\_2darray}}
@@ -771,7 +1007,7 @@ Definition at line 1358 of file my\+\_\+cbc\+\_\+tools.\+py.
 \end{DoxyVerb}
  
 
-Definition at line 1342 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1640 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_adff9bbe2bd80f1f0b83af02351ffe124_adff9bbe2bd80f1f0b83af02351ffe124}\label{namespacemy__cbc__tools_adff9bbe2bd80f1f0b83af02351ffe124_adff9bbe2bd80f1f0b83af02351ffe124}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!write\_txt@{write\_txt}}
@@ -781,20 +1017,56 @@ Definition at line 1342 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
-Definition at line 1283 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 1545 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{namespacemy__cbc__tools_ad74da7fb2bb4a68e9b76932256284080_ad74da7fb2bb4a68e9b76932256284080}\label{namespacemy__cbc__tools_ad74da7fb2bb4a68e9b76932256284080_ad74da7fb2bb4a68e9b76932256284080}} 
-\index{my\_cbc\_tools@{my\_cbc\_tools}!e\_mks\_to\_mev@{e\_mks\_to\_mev}}
-\index{e\_mks\_to\_mev@{e\_mks\_to\_mev}!my\_cbc\_tools@{my\_cbc\_tools}}
-\doxysubsubsection{\texorpdfstring{e\_mks\_to\_mev}{e\_mks\_to\_mev}}
-{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+e\+\_\+mks\+\_\+to\+\_\+mev = 1.\+782661907e15}
+\mbox{\Hypertarget{namespacemy__cbc__tools_a4179baa7ba3fe810f08e81329293b019_a4179baa7ba3fe810f08e81329293b019}\label{namespacemy__cbc__tools_a4179baa7ba3fe810f08e81329293b019_a4179baa7ba3fe810f08e81329293b019}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!my\_colors@{my\_colors}}
+\index{my\_colors@{my\_colors}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{my\_colors}{my\_colors}}
+{\footnotesize\ttfamily list my\+\_\+cbc\+\_\+tools.\+my\+\_\+colors}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  [(0.9756082618370889, 0.8819298114153367, 0.15511474788168034), }
+\DoxyCodeLine{2             (0.8816686822876404, 0.16723558098223046, 0.8232440687726762),}
+\DoxyCodeLine{3             (0.09474917006457495, 0.7640816932916719, 0.7557809243480891),}
+\DoxyCodeLine{4             (0.9869622156803993, 0.19773950935450402, 0.11477842930491322),}
+\DoxyCodeLine{5             (0.0013876747101176923, 0.09891733102233669, 0.21359016748958548), }
+\DoxyCodeLine{6             (0.005058894123937008, 0.19158725163173618, 0.8274597939134388),}
+\DoxyCodeLine{7             (0.14066189835392162, 0.9108866866830906, 0.43832418793816164),}
+\DoxyCodeLine{8             (0.4795075899295418, 0.09701374232611071, 0.867789302976063), }
+\DoxyCodeLine{9             (0.101188878202501, 0.4761126547943416, 0.8337685909406162),}
+\DoxyCodeLine{10             (0.732657217071116, 0.028265149660644195, 0.44243490354748116),}
+\DoxyCodeLine{11             (0.47075839622563465, 0.1865018861754263, 0.27292819189751183), }
+\DoxyCodeLine{12             (0.012832705028862468, 0.6240926466800075, 0.07013874925574748)]}
+
+\end{DoxyCode}
+
+
+Definition at line 21 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a2d9336c1a1b6283891ceeb499c220a3f_a2d9336c1a1b6283891ceeb499c220a3f}\label{namespacemy__cbc__tools_a2d9336c1a1b6283891ceeb499c220a3f_a2d9336c1a1b6283891ceeb499c220a3f}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!p\_cactus\_to\_cgs@{p\_cactus\_to\_cgs}}
+\index{p\_cactus\_to\_cgs@{p\_cactus\_to\_cgs}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{p\_cactus\_to\_cgs}{p\_cactus\_to\_cgs}}
+{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+p\+\_\+cactus\+\_\+to\+\_\+cgs = 1.\+80123683248503e-\/39}
 
 
 
-Definition at line 14 of file my\+\_\+cbc\+\_\+tools.\+py.
+Definition at line 18 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a4e069b5eeee5bbe99622ed3bf0ca7ba9_a4e069b5eeee5bbe99622ed3bf0ca7ba9}\label{namespacemy__cbc__tools_a4e069b5eeee5bbe99622ed3bf0ca7ba9_a4e069b5eeee5bbe99622ed3bf0ca7ba9}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!p\_geo\_to\_mks@{p\_geo\_to\_mks}}
+\index{p\_geo\_to\_mks@{p\_geo\_to\_mks}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{p\_geo\_to\_mks}{p\_geo\_to\_mks}}
+{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+p\+\_\+geo\+\_\+to\+\_\+mks = 8.\+262346242653866e-\/45}
+
+
+
+Definition at line 16 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 \mbox{\Hypertarget{namespacemy__cbc__tools_a1c0da39c1abeed9d697276d15e8f4515_a1c0da39c1abeed9d697276d15e8f4515}\label{namespacemy__cbc__tools_a1c0da39c1abeed9d697276d15e8f4515_a1c0da39c1abeed9d697276d15e8f4515}} 
 \index{my\_cbc\_tools@{my\_cbc\_tools}!p\_mks\_to\_mev@{p\_mks\_to\_mev}}
@@ -804,5 +1076,61 @@ Definition at line 14 of file my\+\_\+cbc\+\_\+tools.\+py.
 
 
 
+Definition at line 14 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a79a1fde7b7caa2511f17b64e36414eee_a79a1fde7b7caa2511f17b64e36414eee}\label{namespacemy__cbc__tools_a79a1fde7b7caa2511f17b64e36414eee_a79a1fde7b7caa2511f17b64e36414eee}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!r\_trans@{r\_trans}}
+\index{r\_trans@{r\_trans}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{r\_trans}{r\_trans}}
+{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+r\+\_\+trans = 1.\+4766250385}
+
+
+
 Definition at line 13 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a55b5ca2857cdf24f7cf4db70e63b5483_a55b5ca2857cdf24f7cf4db70e63b5483}\label{namespacemy__cbc__tools_a55b5ca2857cdf24f7cf4db70e63b5483_a55b5ca2857cdf24f7cf4db70e63b5483}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!rho\_cactus\_to\_cgs@{rho\_cactus\_to\_cgs}}
+\index{rho\_cactus\_to\_cgs@{rho\_cactus\_to\_cgs}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{rho\_cactus\_to\_cgs}{rho\_cactus\_to\_cgs}}
+{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+rho\+\_\+cactus\+\_\+to\+\_\+cgs = 1.\+61887093132742e-\/18}
+
+
+
+Definition at line 19 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_aa5688539ae374e4e5dd22662b0001568_aa5688539ae374e4e5dd22662b0001568}\label{namespacemy__cbc__tools_aa5688539ae374e4e5dd22662b0001568_aa5688539ae374e4e5dd22662b0001568}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!rho\_geo\_to\_mks@{rho\_geo\_to\_mks}}
+\index{rho\_geo\_to\_mks@{rho\_geo\_to\_mks}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{rho\_geo\_to\_mks}{rho\_geo\_to\_mks}}
+{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+rho\+\_\+geo\+\_\+to\+\_\+mks = 7.\+425826474101849e-\/28}
+
+
+
+Definition at line 17 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a07c46006164ffdcf46bb0f271cf52ff4_a07c46006164ffdcf46bb0f271cf52ff4}\label{namespacemy__cbc__tools_a07c46006164ffdcf46bb0f271cf52ff4_a07c46006164ffdcf46bb0f271cf52ff4}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!rho\_mks\_to\_mev@{rho\_mks\_to\_mev}}
+\index{rho\_mks\_to\_mev@{rho\_mks\_to\_mev}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{rho\_mks\_to\_mev}{rho\_mks\_to\_mev}}
+{\footnotesize\ttfamily float my\+\_\+cbc\+\_\+tools.\+rho\+\_\+mks\+\_\+to\+\_\+mev = 1.\+782661907e15}
+
+
+
+Definition at line 15 of file my\+\_\+cbc\+\_\+tools.\+py.
+
+\mbox{\Hypertarget{namespacemy__cbc__tools_a303b7cc4e32650f26919622ccc034109_a303b7cc4e32650f26919622ccc034109}\label{namespacemy__cbc__tools_a303b7cc4e32650f26919622ccc034109_a303b7cc4e32650f26919622ccc034109}} 
+\index{my\_cbc\_tools@{my\_cbc\_tools}!useful\_centences@{useful\_centences}}
+\index{useful\_centences@{useful\_centences}!my\_cbc\_tools@{my\_cbc\_tools}}
+\doxysubsubsection{\texorpdfstring{useful\_centences}{useful\_centences}}
+{\footnotesize\ttfamily list my\+\_\+cbc\+\_\+tools.\+useful\+\_\+centences}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  [\textcolor{stringliteral}{"from pycbc.waveform.compress import rough\_time\_estimate"}, \(\backslash\)}
+\DoxyCodeLine{2                     \textcolor{stringliteral}{"from scipy.stats import pearsonr"}]}
+
+\end{DoxyCode}
+
+
+Definition at line 1566 of file my\+\_\+cbc\+\_\+tools.\+py.
 

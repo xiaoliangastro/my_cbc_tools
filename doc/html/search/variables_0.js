@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['e_5fmks_5fto_5fmev_82',['e_mks_to_mev',['../namespacemy__cbc__tools_ad74da7fb2bb4a68e9b76932256284080.html#ad74da7fb2bb4a68e9b76932256284080',1,'my_cbc_tools']]]
+  ['kde_97',['kde',['../classmy__cbc__tools_1_1kde__data_ad04e3efdc901b04bbb67b361d208debc.html#ad04e3efdc901b04bbb67b361d208debc',1,'my_cbc_tools::kde_data']]]
 ];

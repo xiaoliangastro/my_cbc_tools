@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['m12_5ffrom_5fmcq_70',['m12_from_mcq',['../namespacemy__cbc__tools_a7440bac99cb54cc6d4ac8bb31f9c8d99.html#a7440bac99cb54cc6d4ac8bb31f9c8d99',1,'my_cbc_tools']]],
-  ['mclt_5ffrom_5fm12l12_71',['mclt_from_m12l12',['../namespacemy__cbc__tools_ad15f4cf80fee5024e3d408466e4273e1.html#ad15f4cf80fee5024e3d408466e4273e1',1,'my_cbc_tools']]],
-  ['mcq_5ffrom_5fm12_72',['mcq_from_m12',['../namespacemy__cbc__tools_acb04613bbb77827a6d481a18a63b7345.html#acb04613bbb77827a6d481a18a63b7345',1,'my_cbc_tools']]]
+  ['lambda_5ftilde_79',['lambda_tilde',['../namespacemy__cbc__tools_a85f776a69ab43839237b059c5d8bfa21.html#a85f776a69ab43839237b059c5d8bfa21',1,'my_cbc_tools']]],
+  ['load_5fhdf_80',['load_hdf',['../namespacemy__cbc__tools_aaef1a4dee25632a8fa97b5be102eae7e.html#aaef1a4dee25632a8fa97b5be102eae7e',1,'my_cbc_tools']]],
+  ['load_5fthin_5fhdf_81',['load_thin_hdf',['../namespacemy__cbc__tools_a3117b255457801af45ece864897b245b.html#a3117b255457801af45ece864897b245b',1,'my_cbc_tools']]],
+  ['load_5ftxt_82',['load_txt',['../namespacemy__cbc__tools_a0b214b1c53e5a7a66b1115a20df46c4e.html#a0b214b1c53e5a7a66b1115a20df46c4e',1,'my_cbc_tools']]]
 ];
